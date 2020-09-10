@@ -1,4 +1,7 @@
 Teste 0.
 Teste Aline.
 
-alterei arquivo do neto - merge
+alterei arquivo do neto -* merge
+
+
+nova alteração em arquivo desatualizado - gerando conflito
