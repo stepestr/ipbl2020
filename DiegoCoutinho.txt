@@ -1,4 +1,4 @@
 Listex 0
 
 primeiro commit!
-Criação da branch e conflito
+Atualização na Master.
