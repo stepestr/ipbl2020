@@ -11,7 +11,8 @@
   *	Segundo commit do lucas, agora na branch desenv_lrp
   *
   *
-  
+  *
+  criando conflito
   ******************************************************************************
   */
 /* USER CODE END Header */
