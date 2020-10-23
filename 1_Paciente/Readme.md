@@ -11,5 +11,10 @@ Para utilização do ambiente de desenvolvimento foi desenvolvida uma máquina v
 
 https://drive.google.com/folderview?id=1D4oo8kXvDFDnC4I-kR8gaIJrUp57vl3n
 
+Ferramentas da Máquina Virtual:
+
+- IDE Eclipse 4.17.0 de 2020 para desenvolvimento de software embarcado para o ESP8266.
+- IDE Arduino Genuino 1.8.13 para desenvolvimento de software embarcado para o módulo Arduino.
+
 #
 ## PROJETOS
