@@ -6,5 +6,10 @@
 ## Description
 
 TIME-SCRUM 1 Repository.
+
+Para utilização do ambiente de desenvolvimento foi desenvolvida uma máquina virtual presente no link abaixo:
+
+https://drive.google.com/folderview?id=1D4oo8kXvDFDnC4I-kR8gaIJrUp57vl3n
+
 #
 ## PROJETOS
