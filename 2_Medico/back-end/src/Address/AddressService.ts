@@ -1,5 +1,24 @@
-import { AddressRepository } from './AddressRepository';
+import { Injectable } from '@nestjs/common';
 
+@Injectable()
 export class AddressService {
-  constructor(private addressRepository: AddressRepository) {}
+  async index() {
+    return 'index -> address';
+  }
+
+  async show() {
+    return 'show -> address';
+  }
+
+  async store() {
+    return 'store -> address';
+  }
+
+  async update() {
+    return 'update -> address';
+  }
+
+  async delete() {
+    return 'delete -> address';
+  }
 }

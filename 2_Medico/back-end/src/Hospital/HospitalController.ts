@@ -1,22 +1,32 @@
 import { Controller, Delete, Get, Post, Put } from '@nestjs/common';
 import { HospitalService } from './HospitalService';
 
-@Controller()
-export class HostipalController {
-  constructor(private readonly hospitalService: HospitalService) {}
+@Controller('hospital')
+export class HospitalController {
+  constructor(private hospitalService: HospitalService) {}
 
   @Get()
-  async getHostipal() {}
+  async index() {
+    return await this.hospitalService.index();
+  }
 
   @Get(':id')
-  async getHostipalById() {}
+  async show() {
+    return await this.hospitalService.show();
+  }
 
   @Post()
-  async newHostipal() {}
+  async store() {
+    return await this.hospitalService.store();
+  }
 
   @Put(':id')
-  async updateHostipal() {}
+  async update() {
+    return await this.hospitalService.update();
+  }
 
   @Delete(':id')
-  async deleteHostipal() {}
+  async delete() {
+    return await this.hospitalService.delete();
+  }
 }

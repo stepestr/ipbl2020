@@ -1,23 +1,26 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { AddressModule } from './Address/AddressModule';
 import { ContactModule } from './Contact/ContactModule';
-import { HospitalModule } from './Hospital/HospitalModule';
-import { EmployeeModule } from './Employee/EmployeeModule';
 import { PersonModule } from './Person/PersonModule';
+import { HospitalModule } from './Hospital/HospitalModule';
+import { AddressModule } from './address/AddressModule';
+import { EmployeeModule } from './Employee/EmployeeModule';
 import { DatabaseService } from './Database/DatabaseService';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
   imports: [
-    AddressModule,
+    TypeOrmModule.forRootAsync({
+      useClass: DatabaseService,
+    }),
     ContactModule,
-    HospitalModule,
-    EmployeeModule,
     PersonModule,
+    HospitalModule,
+    AddressModule,
+    EmployeeModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, DatabaseService],
 })
 export class AppModule {}

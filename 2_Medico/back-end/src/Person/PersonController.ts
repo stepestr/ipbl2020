@@ -1,22 +1,32 @@
 import { Controller, Delete, Get, Post, Put } from '@nestjs/common';
-import { PersonService } from './PersonService';
+import { PersonService } from './PersonService'
 
-@Controller()
+@Controller('person')
 export class PersonController {
-  constructor(private readonly personService: PersonService) {}
+    constructor(private personService: PersonService ){}
 
-  @Get()
-  async getPerson() {}
+    @Get()
+  async index() {
+    return await this.personService.index();
+  }
 
   @Get(':id')
-  async getPersonById() {}
+  async show() {
+    return await this.personService.show();
+  }
 
   @Post()
-  async newPerson() {}
+  async store() {
+    return await this.personService.store();
+  }
 
   @Put(':id')
-  async updatePerson() {}
+  async update() {
+    return await this.personService.update();
+  }
 
   @Delete(':id')
-  async deletePerson() {}
+  async delete() {
+    return await this.personService.delete();
+  }
 }

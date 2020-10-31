@@ -1,22 +1,33 @@
-import { Controller, Delete, Get, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, ValidationPipe } from '@nestjs/common';
+import { Contact } from './Contact';
 import { ContactService } from './ContactService';
 
-@Controller()
+@Controller('contact')
 export class ContactController {
-  constructor(private readonly contactService: ContactService) {}
+  constructor(private contactService: ContactService) {}
 
   @Get()
-  async getContact() {}
+  async index(): Promise<Contact[]> {
+    return await this.contactService.index();
+  }
 
   @Get(':id')
-  async getContactById() {}
+  async show(@Param('id') id: number): Promise<Contact> {
+    return await this.contactService.show(id);
+  }
 
   @Post()
-  async newContact() {}
+  async store(@Body(ValidationPipe) data: Contact): Promise<Contact> {
+    return await this.contactService.store(data);
+  }
 
   @Put(':id')
-  async updateContact() {}
+  async update(@Param('id') id: number, @Body(ValidationPipe) data: Contact): Promise<Contact> {
+    return await this.contactService.update(id, data);
+  }
 
   @Delete(':id')
-  async deleteContact() {}
+  async delete(@Param('id') id: number) {
+    return await this.contactService.delete(id);
+  }
 }

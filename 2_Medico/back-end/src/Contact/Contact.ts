@@ -1,6 +1,6 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { classToPlain } from 'class-transformer';
 import { IsEmpty, IsString } from 'class-validator';
+import { classToPlain } from 'class-transformer';
 
 @Entity('contact')
 export class Contact {

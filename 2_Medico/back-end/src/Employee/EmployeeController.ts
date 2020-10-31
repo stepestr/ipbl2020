@@ -1,22 +1,32 @@
 import { Controller, Delete, Get, Post, Put } from '@nestjs/common';
 import { EmployeeService } from './EmployeeService';
 
-@Controller()
+@Controller('employee')
 export class EmployeeController {
-  constructor(private readonly employeeService: EmployeeService) {}
+  constructor(private employeeService: EmployeeService) {}
 
   @Get()
-  async getEmployee() {}
+  async index() {
+    return await this.employeeService.index();
+  }
 
   @Get(':id')
-  async getEmployeeById() {}
+  async show() {
+    return await this.employeeService.show();
+  }
 
   @Post()
-  async newEmployee() {}
+  async store() {
+    return await this.employeeService.store();
+  }
 
   @Put(':id')
-  async updateEmployee() {}
+  async update() {
+    return await this.employeeService.update();
+  }
 
   @Delete(':id')
-  async deleteEmployee() {}
+  async delete() {
+    return await this.employeeService.delete();
+  }
 }
