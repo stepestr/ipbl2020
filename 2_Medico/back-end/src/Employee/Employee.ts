@@ -1,7 +1,7 @@
 import { Column, Entity, JoinColumn, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { classToPlain } from 'class-transformer';
 import { IsEmpty, IsNotEmpty, IsString } from 'class-validator';
-import { Address } from 'src/address/Address';
+import { Address } from 'src/Address/Address';
 import { Contact } from 'src/Contact/Contact';
 import { ApiProperty } from '@nestjs/swagger';
 

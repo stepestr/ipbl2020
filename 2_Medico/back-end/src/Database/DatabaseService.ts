@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
-import { Address } from 'src/address/Address';
+import { Address } from 'src/Address/Address';
 import { Contact } from 'src/Contact/Contact';
 import { Employee } from 'src/Employee/Employee';
 import { Hospital } from 'src/Hospital/Hospital';
