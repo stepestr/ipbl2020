@@ -1,6 +1,4 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { ContactModule } from './Contact/ContactModule';
 import { PersonModule } from './Person/PersonModule';
 import { HospitalModule } from './Hospital/HospitalModule';
@@ -20,7 +18,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     AddressModule,
     EmployeeModule,
   ],
-  controllers: [AppController],
-  providers: [AppService, DatabaseService],
+  providers: [DatabaseService],
 })
 export class AppModule {}

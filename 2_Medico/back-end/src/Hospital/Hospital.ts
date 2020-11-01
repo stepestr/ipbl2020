@@ -1,32 +1,59 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { classToPlain } from 'class-transformer';
-import { IsEmpty, IsString } from 'class-validator';
+import { IsEmpty, IsNotEmpty, IsString } from 'class-validator';
+import { Address } from 'src/address/Address';
+import { Person } from 'src/Person/Person';
+import { Contact } from 'src/Contact/Contact';
+import { Employee } from 'src/Employee/Employee';
+import { ApiProperty } from '@nestjs/swagger';
 
 @Entity('hospital')
 export class Hospital {
+  @ApiProperty()
   @PrimaryGeneratedColumn({ name: 'hos_id' })
   @IsEmpty({ message: 'campo id não pode ser preenchido!' })
   idHospital: number;
 
+  @ApiProperty()
   @Column({ name: 'hos_cnpj' })
-  @IsString({ message: 'campo inválido' })
+  @IsString({ message: 'campo hosCnpj inválido' })
   hosCnpj: string;
 
+  @ApiProperty()
   @Column({ name: 'hos_cnes_code' })
-  @IsString({ message: 'campo inválido' })
+  @IsString({ message: 'campo hosCnesCode inválido' })
   hosCnesCode: number;
 
+  @ApiProperty()
   @Column({ name: 'hos_name' })
-  @IsString({ message: 'campo inválido' })
+  @IsString({ message: 'campo hosName inválido' })
   hosName: string;
 
+  @ApiProperty()
   @Column({ name: 'hos_corporate_name' })
-  @IsString({ message: 'campo inválido' })
+  @IsString({ message: 'campo hosCorpName inválido' })
   hosCorpName: string;
 
-  @Column({ name: 'add_id' })
-  @IsEmpty({ message: 'campo id não pode ser preenchido!' })
-  idAddress: number;
+  @ApiProperty()
+  @OneToOne(() => Address, { onDelete: 'CASCADE' })
+  @JoinColumn()
+  @IsNotEmpty()
+  idAddress: Address;
+
+  @ApiProperty()
+  @ManyToMany(() => Contact, { onDelete: 'CASCADE' })
+  @JoinTable()
+  contacts: Contact[];
+
+  @ApiProperty()
+  @ManyToMany(() => Contact, { onDelete: 'CASCADE' })
+  @JoinTable()
+  employees: Employee[];
+
+  @ApiProperty()
+  @ManyToMany(() => Contact, { onDelete: 'CASCADE' })
+  @JoinTable()
+  persons: Person[];
 
   toJSON() {
     return classToPlain(this);

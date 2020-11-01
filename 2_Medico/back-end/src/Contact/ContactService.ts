@@ -2,13 +2,32 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Contact } from './Contact';
+import { ContactQuery } from './ContactQuery';
+import { ContactQueryResult } from './ContactQueryResult';
 
 @Injectable()
 export class ContactService {
   constructor(@InjectRepository(Contact) private contactRepository: Repository<Contact>) {}
 
-  async index(): Promise<Contact[]> {
-    return await this.contactRepository.find();
+  async index(queryParams: ContactQuery): Promise<ContactQueryResult> {
+    const limit = queryParams.limit ? Number(queryParams.limit) : 10;
+    const page = queryParams.page ? Number(queryParams.page) : 1;
+    queryParams.limit ? Number(queryParams.limit) : 10;
+    const query = this.contactRepository.createQueryBuilder('contact');
+    query.take(limit);
+    query.skip((page - 1) * limit);
+    queryParams.orderBy && query.orderBy(`contact.${queryParams.orderBy}`, queryParams.order);
+    const contacts = await query.getMany();
+    const count = await query.getCount();
+    const pagesAmmount = Math.ceil(count / queryParams.limit);
+    const result: ContactQueryResult = {
+      page,
+      limit,
+      count,
+      pagesAmmount,
+      contacts,
+    };
+    return result;
   }
 
   async show(id: number): Promise<Contact> {
@@ -17,7 +36,7 @@ export class ContactService {
 
   async store(data: Contact): Promise<Contact> {
     const contact: Contact = this.contactRepository.create(data);
-    return contact;
+    return await this.contactRepository.save(contact);
   }
 
   async update(id: number, data: Contact): Promise<Contact> {

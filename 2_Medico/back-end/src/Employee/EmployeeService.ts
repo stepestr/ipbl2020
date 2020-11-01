@@ -1,24 +1,51 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Employee } from './Employee';
+import { EmployeeQuery } from './EmployeeQuery';
+import { EmployeesQueryResult } from './EmployeesQueryResult';
 
 @Injectable()
 export class EmployeeService {
-  async index() {
-    return 'index -> employee';
+  constructor(@InjectRepository(Employee) private employeeRepository: Repository<Employee>) {}
+
+  async index(queryParams: EmployeeQuery): Promise<EmployeesQueryResult> {
+    const limit = queryParams.limit ? Number(queryParams.limit) : 10;
+    const page = queryParams.page ? Number(queryParams.page) : 1;
+    queryParams.limit ? Number(queryParams.limit) : 10;
+    const query = this.employeeRepository.createQueryBuilder('employee');
+    query.take(limit);
+    query.skip((page - 1) * limit);
+    queryParams.orderBy && query.orderBy(`employee.${queryParams.orderBy}`, queryParams.order);
+    const employees = await query.getMany();
+    const count = await query.getCount();
+    const pagesAmmount = Math.ceil(count / queryParams.limit);
+    const result: EmployeesQueryResult = {
+      page,
+      limit,
+      count,
+      pagesAmmount,
+      employees,
+    };
+    return result;
   }
 
-  async show() {
-    return 'show -> employee';
+  async show(id: number): Promise<Employee> {
+    return await this.employeeRepository.findOne({ idEmployee: id });
   }
 
-  async store() {
-    return 'store -> employee';
+  async store(data: Employee): Promise<Employee> {
+    const employee: Employee = this.employeeRepository.create(data);
+    return await this.employeeRepository.save(employee);
   }
 
-  async update() {
-    return 'update -> employee';
+  async update(id: number, data: Employee): Promise<Employee> {
+    await this.employeeRepository.update({ idEmployee: id }, data);
+    return this.show(id);
   }
 
-  async delete() {
-    return 'delete -> employee';
+  async delete(id: number) {
+    const employee = await this.employeeRepository.find({ idEmployee: id });
+    await this.employeeRepository.remove(employee);
   }
 }

@@ -1,14 +1,18 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, ValidationPipe } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { Contact } from './Contact';
+import { ContactQuery } from './ContactQuery';
+import { ContactQueryResult } from './ContactQueryResult';
 import { ContactService } from './ContactService';
 
+@ApiTags('Contact')
 @Controller('contact')
 export class ContactController {
   constructor(private contactService: ContactService) {}
 
   @Get()
-  async index(): Promise<Contact[]> {
-    return await this.contactService.index();
+  async index(@Query(ValidationPipe) queryParams: ContactQuery): Promise<ContactQueryResult> {
+    return await this.contactService.index(queryParams);
   }
 
   @Get(':id')

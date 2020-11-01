@@ -1,32 +1,37 @@
-import { Controller, Delete, Get, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, ValidationPipe } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
+import { Hospital } from './Hospital';
+import { HospitalQuery } from './HospitalQuery';
+import { HospitalQueryResult } from './HospitalQueryResult';
 import { HospitalService } from './HospitalService';
 
+@ApiTags('Hospital')
 @Controller('hospital')
 export class HospitalController {
   constructor(private hospitalService: HospitalService) {}
 
   @Get()
-  async index() {
-    return await this.hospitalService.index();
+  async index(@Query(ValidationPipe) queryParams: HospitalQuery): Promise<HospitalQueryResult> {
+    return await this.hospitalService.index(queryParams);
   }
 
   @Get(':id')
-  async show() {
-    return await this.hospitalService.show();
+  async show(@Param('id') id: number): Promise<Hospital> {
+    return await this.hospitalService.show(id);
   }
 
   @Post()
-  async store() {
-    return await this.hospitalService.store();
+  async store(@Body(ValidationPipe) data: Hospital): Promise<Hospital> {
+    return await this.hospitalService.store(data);
   }
 
   @Put(':id')
-  async update() {
-    return await this.hospitalService.update();
+  async update(@Param('id') id: number, @Body(ValidationPipe) data: Hospital): Promise<Hospital> {
+    return await this.hospitalService.update(id, data);
   }
 
   @Delete(':id')
-  async delete() {
-    return await this.hospitalService.delete();
+  async delete(@Param('id') id: number) {
+    return await this.hospitalService.delete(id);
   }
 }
