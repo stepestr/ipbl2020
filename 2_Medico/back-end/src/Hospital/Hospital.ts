@@ -34,23 +34,23 @@ export class Hospital {
   @IsString({ message: 'campo hosCorpName inválido' })
   hosCorpName: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: Address })
   @OneToOne(() => Address, { onDelete: 'CASCADE' })
   @JoinColumn()
   @IsNotEmpty()
   idAddress: Address;
 
-  @ApiProperty()
+  @ApiProperty({ type: Contact })
   @ManyToMany(() => Contact, { onDelete: 'CASCADE' })
   @JoinTable()
   contacts: Contact[];
 
-  @ApiProperty()
+  @ApiProperty({ type: Employee })
   @ManyToMany(() => Contact, { onDelete: 'CASCADE' })
   @JoinTable()
   employees: Employee[];
 
-  @ApiProperty()
+  @ApiProperty({ type: Person })
   @ManyToMany(() => Contact, { onDelete: 'CASCADE' })
   @JoinTable()
   persons: Person[];

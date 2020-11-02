@@ -27,13 +27,13 @@ export class Employee {
   @IsString({ message: 'campo empOccupation inválido' })
   empOccupation: string;
 
-  @ApiProperty()
+  @ApiProperty({ type: Address })
   @OneToOne(() => Address, { onDelete: 'CASCADE' })
   @IsNotEmpty()
   @JoinColumn()
   idAddress: Address;
 
-  @ApiProperty()
+  @ApiProperty({ type: Contact })
   @ManyToMany(() => Contact, { onDelete: 'CASCADE' })
   @JoinTable()
   contacts: Contact[];

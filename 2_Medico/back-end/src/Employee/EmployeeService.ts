@@ -3,13 +3,13 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Employee } from './Employee';
 import { EmployeeQuery } from './EmployeeQuery';
-import { EmployeesQueryResult } from './EmployeesQueryResult';
+import { EmployeeQueryResult } from './EmployeeQueryResult';
 
 @Injectable()
 export class EmployeeService {
   constructor(@InjectRepository(Employee) private employeeRepository: Repository<Employee>) {}
 
-  async index(queryParams: EmployeeQuery): Promise<EmployeesQueryResult> {
+  async index(queryParams: EmployeeQuery): Promise<EmployeeQueryResult> {
     const limit = queryParams.limit ? Number(queryParams.limit) : 10;
     const page = queryParams.page ? Number(queryParams.page) : 1;
     queryParams.limit ? Number(queryParams.limit) : 10;
@@ -20,7 +20,7 @@ export class EmployeeService {
     const employees = await query.getMany();
     const count = await query.getCount();
     const pagesAmmount = Math.ceil(count / queryParams.limit);
-    const result: EmployeesQueryResult = {
+    const result: EmployeeQueryResult = {
       page,
       limit,
       count,
