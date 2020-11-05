@@ -18,3 +18,9 @@ Ferramentas da Máquina Virtual:
 
 #
 ## PROJETOS
+
+### Dashbord
+
+- Visualização do dados do paciente, sensores do componente do exoesqueleto e emergencia
+  - Web: React
+  - Mobile: React Native
