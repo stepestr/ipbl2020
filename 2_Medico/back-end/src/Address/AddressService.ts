@@ -1,51 +1,30 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
 import { Address } from './Address';
 import { AddressQuery } from './AddressQuery';
 import { AddressQueryResult } from './AddressQueryResult';
+import { AddressRepository } from './AddressRepository';
 
 @Injectable()
 export class AddressService {
-  constructor(@InjectRepository(Address) private addressRepository: Repository<Address>) {}
+  constructor(private addressRepository: AddressRepository) {}
 
   async index(queryParams: AddressQuery): Promise<AddressQueryResult> {
-    const limit = queryParams.limit ? Number(queryParams.limit) : 10;
-    const page = queryParams.page ? Number(queryParams.page) : 1;
-    queryParams.limit ? Number(queryParams.limit) : 10;
-    const query = this.addressRepository.createQueryBuilder('address');
-    query.take(limit);
-    query.skip((page - 1) * limit);
-    queryParams.orderBy && query.orderBy(`address.${queryParams.orderBy}`, queryParams.order);
-    const addresses = await query.getMany();
-    const count = await query.getCount();
-    const pagesAmmount = Math.ceil(count / queryParams.limit);
-    const result: AddressQueryResult = {
-      page,
-      limit,
-      count,
-      pagesAmmount,
-      addresses,
-    };
-    return result;
+    return await this.addressRepository.index(queryParams);
   }
 
   async show(id: number): Promise<Address> {
-    return await this.addressRepository.findOne({ idAddress: id });
+    return await this.addressRepository.show(id);
   }
 
   async store(data: Address): Promise<Address> {
-    const address: Address = this.addressRepository.create(data);
-    return await this.addressRepository.save(address);
+    return await this.addressRepository.store(data);
   }
 
   async update(id: number, data: Address): Promise<Address> {
-    await this.addressRepository.update({ idAddress: id }, data);
-    return this.show(id);
+    return await this.addressRepository.update(id, data);
   }
 
   async delete(id: number) {
-    const address = await this.addressRepository.find({ idAddress: id });
-    await this.addressRepository.remove(address);
+    return await this.addressRepository.delete(id);
   }
 }

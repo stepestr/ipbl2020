@@ -1,8 +1,7 @@
-import { Person } from './Person';
 import { ApiProperty } from '@nestjs/swagger';
+import { Sensor } from './Sensor';
 
-export abstract class PersonQueryResult {
-
+export abstract class SensorQueryResult {
   @ApiProperty()
   page: number;
 
@@ -15,6 +14,6 @@ export abstract class PersonQueryResult {
   @ApiProperty()
   limit: number;
 
-  @ApiProperty({ type: Person })
-  people: Person[];
+  @ApiProperty({ type: Sensor })
+  sensors: Sensor[];
 }

@@ -1,51 +1,30 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
 import { Hospital } from './Hospital';
 import { HospitalQuery } from './HospitalQuery';
 import { HospitalQueryResult } from './HospitalQueryResult';
+import { HospitalRepository } from './HospitalRepository';
 
 @Injectable()
 export class HospitalService {
-  constructor(@InjectRepository(Hospital) private hospitalRepository: Repository<Hospital>) {}
+  constructor(private hospitalRepository: HospitalRepository) {}
 
   async index(queryParams: HospitalQuery): Promise<HospitalQueryResult> {
-    const limit = queryParams.limit ? Number(queryParams.limit) : 10;
-    const page = queryParams.page ? Number(queryParams.page) : 1;
-    queryParams.limit ? Number(queryParams.limit) : 10;
-    const query = this.hospitalRepository.createQueryBuilder('hospital');
-    query.take(limit);
-    query.skip((page - 1) * limit);
-    queryParams.orderBy && query.orderBy(`hospital.${queryParams.orderBy}`, queryParams.order);
-    const hospitals = await query.getMany();
-    const count = await query.getCount();
-    const pagesAmmount = Math.ceil(count / queryParams.limit);
-    const result: HospitalQueryResult = {
-      page,
-      limit,
-      count,
-      pagesAmmount,
-      hospitals,
-    };
-    return result;
+    return await this.hospitalRepository.index(queryParams);
   }
 
   async show(id: number): Promise<Hospital> {
-    return await this.hospitalRepository.findOne({ idHospital: id });
+    return await this.hospitalRepository.show(id);
   }
 
   async store(data: Hospital): Promise<Hospital> {
-    const hospital: Hospital = this.hospitalRepository.create(data);
-    return await this.hospitalRepository.save(hospital);
+    return await this.hospitalRepository.store(data);
   }
 
   async update(id: number, data: Hospital): Promise<Hospital> {
-    await this.hospitalRepository.update({ idHospital: id }, data);
-    return this.show(id);
+    return await this.hospitalRepository.update(id, data);
   }
 
   async delete(id: number) {
-    const hospital = await this.hospitalRepository.find({ idHospital: id });
-    await this.hospitalRepository.remove(hospital);
+    return await this.hospitalRepository.delete(id);
   }
 }
