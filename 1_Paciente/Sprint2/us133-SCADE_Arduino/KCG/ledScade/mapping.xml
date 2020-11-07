@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--$******* SCADE Suite KCG 32-bit 6.6.1 beta (build i1) ********
+** Command: kcg661.exe -config C:/Users/FJCM GAMER/Google Drive/ITA RESTRICT/TRABALHOS/SCADE/ToArduino/KCG/ledScade/config.txt
+** Generation date: 2020-11-02T23:24:34
+*************************************************************$-->
+<mapping>
+  <config>
+    <option name="use_types" value="#off#"/>
+    <option name="imported_root_package" value="#off#"/>
+    <option name="root_package" value="#off#"/>
+    <option name="xml_basename" value="kcg_xml_filter_out.scade"/>
+    <option name="state_vector" value="#off#"/>
+    <option name="static" value="#off#"/>
+    <option name="separate_io_all" value="#off#"/>
+    <option name="no_separate_io" value="#off#"/>
+    <option name="separate_io" value="#off#"/>
+    <option name="warn_error" value="#off#"/>
+    <option name="short_circuit" value="#off#"/>
+    <option name="wrap_c_ops" value="#off#"/>
+    <option name="input_file" value="C:/Program Files/ANSYS Inc/v202/SCADE/SCADE/libraries/SC65/libverif/libverif.xscade"/>
+    <option name="input_file" value="C:/Program Files/ANSYS Inc/v202/SCADE/SCADE/libraries/SC65/libpwlinear/lut.xscade"/>
+    <option name="input_file"
+        value="C:/Program Files/ANSYS Inc/v202/SCADE/SCADE/libraries/SC65/libpwlinear/pwlinear.xscade"/>
+    <option name="input_file" value="C:/Program Files/ANSYS Inc/v202/SCADE/SCADE/libraries/SC65/libmathext/mathext.xscade"/>
+    <option name="input_file" value="C:/Program Files/ANSYS Inc/v202/SCADE/SCADE/libraries/SC65/libmath/math.xscade"/>
+    <option name="input_file" value="C:/Program Files/ANSYS Inc/v202/SCADE/SCADE/libraries/SC65/libmath/vect.xscade"/>
+    <option name="input_file" value="C:/Program Files/ANSYS Inc/v202/SCADE/SCADE/libraries/SC65/liblinear/filters.xscade"/>
+    <option name="input_file" value="C:/Program Files/ANSYS Inc/v202/SCADE/SCADE/libraries/SC65/liblinear/linear.xscade"/>
+    <option name="input_file"
+        value="C:/Program Files/ANSYS Inc/v202/SCADE/SCADE/libraries/SC65/libdigital/TruthTables.xscade"/>
+    <option name="input_file" value="C:/Program Files/ANSYS Inc/v202/SCADE/SCADE/libraries/SC65/libdigital/digital.xscade"/>
+    <option name="input_file"
+        value="C:/Users/FJCM GAMER/Google Drive/ITA RESTRICT/TRABALHOS/SCADE/ToArduino/setFlag.xscade"/>
+    <option name="probes" value="#off#"/>
+    <option name="debug" value="#off#"/>
+    <option name="no_observe" value="#off#"/>
+    <option name="observe" value="#off#"/>
+    <option name="user_config" value="./user_macros.h"/>
+    <option name="input_threshold" value="#off#"/>
+    <option name="header" value="#off#"/>
+    <option name="significance_length" value="31"/>
+    <option name="name_length" value="200"/>
+    <option name="globals_prefix" value="#off#"/>
+    <option name="keep_asserts" value="#off#"/>
+    <option name="global_root_context" value="#off#"/>
+    <option name="expall" value="#off#"/>
+    <option name="noexp" value="#off#"/>
+    <option name="exp" value="#off#"/>
+    <option name="target_dir" value="C:/Users/FJCM GAMER/Google Drive/ITA RESTRICT/TRABALHOS/SCADE/ToArduino/KCG/ledScade"/>
+    <option name="target" value="C"/>
+    <option name="root" value="setFlag"/>
+    <option name="auth" value="#off#"/>
+  </config>
+  <model>
+    <predefType id="1" name="bool"/>
+    <predefType id="2" name="char"/>
+    <predefType id="3" name="int8"/>
+    <predefType id="4" name="int16"/>
+    <predefType id="5" name="int32"/>
+    <predefType id="6" name="int64"/>
+    <predefType id="7" name="uint8"/>
+    <predefType id="8" name="uint16"/>
+    <predefType id="9" name="uint32"/>
+    <predefType id="10" name="uint64"/>
+    <predefType id="11" name="float32"/>
+    <predefType id="12" name="float64"/>
+    <predefType id="13" name="size"/>
+    <operator id="14" name="setFlag" imported="false" root="true" expanded="false">
+      <input id="15" name="potenciometro" clock="false" type="8"/>
+      <output id="16" name="delay_out" clock="false" type="8"/>
+      <output id="17" name="piscar_led" clock="false" type="1"/>
+    </operator>
+    <package id="18" name="digital"/>
+    <package id="19" name="truthtables">
+      <enum id="20" name="TruthTableValues">
+        <value id="21" name="T" default="false"/>
+        <value id="22" name="F" default="false"/>
+        <value id="23" name="X" default="false"/>
+      </enum>
+    </package>
+    <package id="24" name="linear"/>
+    <package id="25" name="filters"/>
+    <package id="26" name="vect"/>
+    <package id="27" name="math"/>
+    <package id="28" name="mathext">
+      <package id="29" name="mathextimpl"/>
+    </package>
+    <package id="30" name="pwlinear"/>
+    <package id="31" name="lut"/>
+    <package id="32" name="verif"/>
+  </model>
+  <generated>
+    <c>
+      <file id="33" name="setFlag.h">
+        <function id="34" name="setFlag_init">
+          <parameter id="35" name="outC" type="41" pointer="true"/>
+        </function>
+        <function id="36" name="setFlag_reset">
+          <parameter id="37" name="outC" type="41" pointer="true"/>
+        </function>
+        <function id="38" name="setFlag">
+          <parameter id="39" name="inC" type="44" pointer="true"/>
+          <parameter id="40" name="outC" type="41" pointer="true"/>
+        </function>
+        <struct id="41" name="outC_setFlag">
+          <field id="42" name="delay_out" type="79" pointer="false"/>
+          <field id="43" name="piscar_led" type="85" pointer="false"/>
+        </struct>
+        <struct id="44" name="inC_setFlag">
+          <field id="45" name="potenciometro" type="79" pointer="false"/>
+        </struct>
+      </file>
+      <file id="46" name="kcg_types.h">
+        <enum id="47" name="TruthTableValues_truthtables" tagName="kcg_tag_TruthTableValues_truthtables">
+          <value id="48" name="T_truthtables"/>
+          <value id="49" name="F_truthtables"/>
+          <value id="50" name="X_truthtables"/>
+        </enum>
+        <macro id="51" name="kcg_assign_array"/>
+        <macro id="52" name="kcg_assign_struct"/>
+        <macro id="53" name="kcg_lnot_uint8"/>
+        <macro id="54" name="kcg_lnot_uint16"/>
+        <macro id="55" name="kcg_lnot_uint32"/>
+        <macro id="56" name="kcg_lnot_uint64"/>
+        <macro id="57" name="kcg_lsl_uint8"/>
+        <macro id="58" name="kcg_lsl_uint16"/>
+        <macro id="59" name="kcg_lsl_uint32"/>
+        <macro id="60" name="kcg_lsl_uint64"/>
+        <macro id="61" name="kcg_true"/>
+        <macro id="62" name="kcg_false"/>
+        <macro id="63" name="kcg_lit_int8"/>
+        <macro id="64" name="kcg_lit_int16"/>
+        <macro id="65" name="kcg_lit_int32"/>
+        <macro id="66" name="kcg_lit_int64"/>
+        <macro id="67" name="kcg_lit_uint8"/>
+        <macro id="68" name="kcg_lit_uint16"/>
+        <macro id="69" name="kcg_lit_uint32"/>
+        <macro id="70" name="kcg_lit_uint64"/>
+        <macro id="71" name="kcg_lit_size"/>
+        <macro id="72" name="kcg_lit_float64"/>
+        <macro id="73" name="kcg_lit_float32"/>
+        <predefType id="74" name="kcg_int8"/>
+        <predefType id="75" name="kcg_int16"/>
+        <predefType id="76" name="kcg_int32"/>
+        <predefType id="77" name="kcg_int64"/>
+        <predefType id="78" name="kcg_uint8"/>
+        <predefType id="79" name="kcg_uint16"/>
+        <predefType id="80" name="kcg_uint32"/>
+        <predefType id="81" name="kcg_uint64"/>
+        <predefType id="82" name="kcg_size"/>
+        <predefType id="83" name="kcg_float64"/>
+        <predefType id="84" name="kcg_float32"/>
+        <predefType id="85" name="kcg_bool"/>
+        <predefType id="86" name="kcg_char"/>
+        <macro id="87" name="KCG_MAPW_CPY"/>
+      </file>
+      <file id="88" name="kcg_consts.h"/>
+      <file id="89" name="kcg_sensors.h"/>
+    </c>
+    <map srcId="83" dstId="72" role="wrapped-lit"/>
+    <map srcId="84" dstId="73" role="wrapped-lit"/>
+    <map srcId="82" dstId="71" role="wrapped-lit"/>
+    <map srcId="81" dstId="70" role="wrapped-lit"/>
+    <map srcId="81" dstId="56" role="wrapped-lnot"/>
+    <map srcId="81" dstId="60" role="wrapped-lsl"/>
+    <map srcId="80" dstId="69" role="wrapped-lit"/>
+    <map srcId="80" dstId="55" role="wrapped-lnot"/>
+    <map srcId="80" dstId="59" role="wrapped-lsl"/>
+    <map srcId="79" dstId="68" role="wrapped-lit"/>
+    <map srcId="79" dstId="54" role="wrapped-lnot"/>
+    <map srcId="79" dstId="58" role="wrapped-lsl"/>
+    <map srcId="78" dstId="67" role="wrapped-lit"/>
+    <map srcId="78" dstId="53" role="wrapped-lnot"/>
+    <map srcId="78" dstId="57" role="wrapped-lsl"/>
+    <map srcId="77" dstId="66" role="wrapped-lit"/>
+    <map srcId="76" dstId="65" role="wrapped-lit"/>
+    <map srcId="75" dstId="64" role="wrapped-lit"/>
+    <map srcId="74" dstId="63" role="wrapped-lit"/>
+  </generated>
+  <map modelId="23" generatedId="50"/>
+  <map modelId="22" generatedId="49"/>
+  <map modelId="21" generatedId="48"/>
+  <map modelId="14" generatedId="35" role="context-parameter"/>
+  <map modelId="14" generatedId="34" role="init-method"/>
+  <map modelId="14" generatedId="37" role="context-parameter"/>
+  <map modelId="14" generatedId="36" role="reset-method"/>
+  <map modelId="14" generatedId="39" role="input-struct-parameter"/>
+  <map modelId="15" generatedId="45"/>
+  <map modelId="14" generatedId="44" role="input-struct-type"/>
+  <map modelId="14" generatedId="40" role="context-parameter"/>
+  <map modelId="17" generatedId="43"/>
+  <map modelId="16" generatedId="42"/>
+  <map modelId="14" generatedId="41" role="context-type"/>
+  <map modelId="14" generatedId="33" role="interface-file"/>
+  <map modelId="14" generatedId="38" role="cycle-method"/>
+  <map modelId="20" generatedId="47"/>
+  <map modelId="2" generatedId="86"/>
+  <map modelId="1" generatedId="85"/>
+  <map modelId="12" generatedId="83"/>
+  <map modelId="11" generatedId="84"/>
+  <map modelId="13" generatedId="82"/>
+  <map modelId="10" generatedId="81"/>
+  <map modelId="9" generatedId="80"/>
+  <map modelId="8" generatedId="79"/>
+  <map modelId="7" generatedId="78"/>
+  <map modelId="6" generatedId="77"/>
+  <map modelId="5" generatedId="76"/>
+  <map modelId="4" generatedId="75"/>
+  <map modelId="3" generatedId="74"/>
+</mapping>
+<!--$******* SCADE Suite KCG 32-bit 6.6.1 beta (build i1) ********
+** mapping.xml
+** Generation date: 2020-11-02T23:24:34
+*************************************************************$-->

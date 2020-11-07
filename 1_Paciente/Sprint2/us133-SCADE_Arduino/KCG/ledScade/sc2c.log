@@ -1,0 +1,40 @@
+$************** ANSYS(R) SCADE Suite(R) - SCADETOC - Version 2020 R2 (build 20200528T211637) **************
+** Generation date: 2020-11-02T23:24:30
+** Command: scade -code "C:\Users\FJCM GAMER\Google Drive\ITA RESTRICT\TRABALHOS\SCADE\ToArduino\ToArduino.etp" -root setFlag -conf KCG
+*************************************************************$
+*** Generated Files Information (GENFIL): KCG- Generated files
+  at file C:\Users\FJCM GAMER\Google Drive\ITA RESTRICT\TRABALHOS\SCADE\ToArduino\KCG\ledScade\mapping.xml, line 0, character 0
+ ~mapping.xml
+  at file C:\Users\FJCM GAMER\Google Drive\ITA RESTRICT\TRABALHOS\SCADE\ToArduino\KCG\ledScade\kcg_metrics.txt, line 0, character 0
+ ~kcg_metrics.txt
+  at file C:\Users\FJCM GAMER\Google Drive\ITA RESTRICT\TRABALHOS\SCADE\ToArduino\KCG\ledScade\setFlag.c, line 0, character 0
+ ~setFlag.c
+  at file C:\Users\FJCM GAMER\Google Drive\ITA RESTRICT\TRABALHOS\SCADE\ToArduino\KCG\ledScade\setFlag.h, line 0, character 0
+ ~setFlag.h
+  at file C:\Users\FJCM GAMER\Google Drive\ITA RESTRICT\TRABALHOS\SCADE\ToArduino\KCG\ledScade\kcg_types.h, line 0, character 0
+ ~kcg_types.h
+  at file C:\Users\FJCM GAMER\Google Drive\ITA RESTRICT\TRABALHOS\SCADE\ToArduino\KCG\ledScade\kcg_consts.h, line 0, character 0
+ ~kcg_consts.h
+  at file C:\Users\FJCM GAMER\Google Drive\ITA RESTRICT\TRABALHOS\SCADE\ToArduino\KCG\ledScade\kcg_sensors.h, line 0, character 0
+ ~kcg_sensors.h
+  at file C:\Users\FJCM GAMER\Google Drive\ITA RESTRICT\TRABALHOS\SCADE\ToArduino\KCG\ledScade\kcg_types.c, line 0, character 0
+ ~kcg_types.c
+  at file C:\Users\FJCM GAMER\Google Drive\ITA RESTRICT\TRABALHOS\SCADE\ToArduino\KCG\ledScade\kcg_consts.c, line 0, character 0
+ ~kcg_consts.c
+  at file C:\Users\FJCM GAMER\Google Drive\ITA RESTRICT\TRABALHOS\SCADE\ToArduino\KCG\ledScade\kcg_xml_filter_out.scade, line 0, character 0
+ ~kcg_xml_filter_out.scade
+  at file C:\Users\FJCM GAMER\Google Drive\ITA RESTRICT\TRABALHOS\SCADE\ToArduino\KCG\ledScade\config.txt, line 0, character 0
+ ~config.txt
+*** Generated Files Information (GENFIL): Code Generator Generated files
+  at file C:\Users\FJCM GAMER\Google Drive\ITA RESTRICT\TRABALHOS\SCADE\ToArduino\KCG\ledScade\user_macros.h, line 0, character 0
+ ~user_macros.h
+  at file C:\Users\FJCM GAMER\Google Drive\ITA RESTRICT\TRABALHOS\SCADE\ToArduino\KCG\ledScade\kcg_imported_types.h, line 0, character 0
+ ~kcg_imported_types.h
+  at file C:\Users\FJCM GAMER\Google Drive\ITA RESTRICT\TRABALHOS\SCADE\ToArduino\KCG\ledScade\sc2c.log, line 0, character 0
+ ~sc2c.log
+  at file C:\Users\FJCM GAMER\Google Drive\ITA RESTRICT\TRABALHOS\SCADE\ToArduino\KCG\ledScade\sc2c_integration_files.txt, line 0, character 0
+ ~sc2c_integration_files.txt
+$************** ANSYS(R) SCADE Suite(R) - SCADETOC - Version 2020 R2 (build 20200528T211637) **************
+** Generation date: 2020-11-02T23:24:35
+** sc2c.log
+*************************************************************$
