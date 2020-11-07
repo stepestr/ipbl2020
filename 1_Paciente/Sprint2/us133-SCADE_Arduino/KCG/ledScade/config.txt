@@ -1,0 +1,13 @@
+-target_dir "C:/Users/FJCM GAMER/Google Drive/ITA RESTRICT/TRABALHOS/SCADE/ToArduino/KCG/ledScade" -target C -name_length 200 -significance_length 31 -user_config "./user_macros.h" 
+-root setFlag
+"C:/Users/FJCM GAMER/Google Drive/ITA RESTRICT/TRABALHOS/SCADE/ToArduino/setFlag.xscade"
+"C:/Program Files/ANSYS Inc/v202/SCADE/SCADE/libraries/SC65/libdigital/digital.xscade"
+"C:/Program Files/ANSYS Inc/v202/SCADE/SCADE/libraries/SC65/libdigital/TruthTables.xscade"
+"C:/Program Files/ANSYS Inc/v202/SCADE/SCADE/libraries/SC65/liblinear/linear.xscade"
+"C:/Program Files/ANSYS Inc/v202/SCADE/SCADE/libraries/SC65/liblinear/filters.xscade"
+"C:/Program Files/ANSYS Inc/v202/SCADE/SCADE/libraries/SC65/libmath/vect.xscade"
+"C:/Program Files/ANSYS Inc/v202/SCADE/SCADE/libraries/SC65/libmath/math.xscade"
+"C:/Program Files/ANSYS Inc/v202/SCADE/SCADE/libraries/SC65/libmathext/mathext.xscade"
+"C:/Program Files/ANSYS Inc/v202/SCADE/SCADE/libraries/SC65/libpwlinear/pwlinear.xscade"
+"C:/Program Files/ANSYS Inc/v202/SCADE/SCADE/libraries/SC65/libpwlinear/lut.xscade"
+"C:/Program Files/ANSYS Inc/v202/SCADE/SCADE/libraries/SC65/libverif/libverif.xscade"
