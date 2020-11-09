@@ -6,7 +6,10 @@ import { ContactQueryResult } from './ContactQueryResult';
 
 @Injectable()
 export class ContactRepository {
-  constructor(@Inject('CONTACT_REPOSITORY') private contactRepository: Repository<Contact>) {}
+  constructor(
+    @Inject('CONTACT_REPOSITORY')
+    private contactRepository: Repository<Contact>,
+  ) {}
 
   async index(queryParams: ContactQuery): Promise<ContactQueryResult> {
     const limit = queryParams.limit ? Number(queryParams.limit) : 10;
@@ -15,8 +18,9 @@ export class ContactRepository {
     const query = this.contactRepository.createQueryBuilder('contact');
     query.take(limit);
     query.skip((page - 1) * limit);
-    queryParams.orderBy && query.orderBy(`contact.${queryParams.orderBy}`, queryParams.order);
-    const contacts= await query.getMany();
+    queryParams.orderBy &&
+      query.orderBy(`contact.${queryParams.orderBy}`, queryParams.order);
+    const contacts = await query.getMany();
     const count = await query.getCount();
     const pagesAmmount = Math.ceil(count / queryParams.limit);
     const result: ContactQueryResult = {
@@ -46,5 +50,9 @@ export class ContactRepository {
   async delete(id: number) {
     const contact = await this.contactRepository.find({ idContact: id });
     await this.contactRepository.remove(contact);
+  }
+
+  async getAll(): Promise<Contact[]> {
+    return await this.contactRepository.find();
   }
 }
