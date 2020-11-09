@@ -1,0 +1,1 @@
+Um esquema das ligações necessárias pode ser encontrado no repostório da SPRINT 2 do TS1 US#138
