@@ -11,46 +11,49 @@
 =========================================================
 
 */
-import React from "react";
-// nodejs library that concatenates classes
-import classNames from "classnames";
+import React, {Component} from "react";
+import Select from 'react-select';
+
 // react plugin used to create charts
-import { Line, Bar } from "react-chartjs-2";
+import { Line, Bar, Doughnut } from "react-chartjs-2";
+
+import api from "../services/apimock/index";
 
 // reactstrap components
 import {
-  Button,
-  ButtonGroup,
   Card,
   CardHeader,
   CardBody,
   CardTitle,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  UncontrolledDropdown,
-  Label,
-  FormGroup,
-  Input,
   Table,
   Row,
   Col,
-  UncontrolledTooltip
 } from "reactstrap";
 
 // core components
 import {
-  chartExample1,
-  chartExample2,
-  chartExample3,
-  chartExample4
+  optionsTemp,
+  optionsStatus,
+  optionsBarTemp,
+  optionsEmer
 } from "variables/charts.js";
 
-class Dashboard extends React.Component {
+const colors = ['#1f8ef1', '#00d6b4', '#ff8d72', '#e30000', '#0013e3'];
+const months = ['JAN', 'FEV', 'MAR', 'ABR', 'MAI', 'JUN', 'JUL', 'AGO', 'SET', 'OUT', 'NOV', 'DEZ'];
+
+class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      bigChartData: "data1"
+      chartLineTemperature: { labels: [], datasets: [], },
+      chartBarTemperature: { labels: [], datasets: [], },
+      chartStatus: { labels: [], datasets: [], },
+      chartEmergencies: { labels: [], datasets: [], },
+      tablePersons : [],
+      tableEmergencies: [],
+      totalEmergencies: 0,
+      selectedPersons: [],
+      persons: [],
     };
   }
   setBgChartData = name => {
@@ -58,100 +61,224 @@ class Dashboard extends React.Component {
       bigChartData: name
     });
   };
+
+  componentDidMount() {
+    this.loadPersons(true);
+  }
+ 
+  loadPersons = inicial => {
+    api.get_persons().then(result => {
+      result.forEach((element) => {
+        element['label'] = element.per_name;
+        element['value'] = element.hos_per_id; 
+      });
+
+      this.setState({persons: result});
+
+      if (inicial) {
+        this.loadDashboard(result);
+      }
+    });
+  }
+
+  createChartsExoesqueleto = (data, persons) => {
+    // Draw Line Charts
+    let labels        = [];
+    let datasetsTemp  = [];
+    let datasetsSatus = [];
+    let indexColor = 0;
+    console.log(data)
+    persons.forEach((element) => {
+      datasetsTemp.push({
+          label: element.label.substring(0, 20)+'...',
+          fill: true,
+          borderColor: colors[indexColor],
+          borderWidth: 1,
+          borderDash: [],
+          borderDashOffset: 0.0,
+          pointBackgroundColor: colors[indexColor],
+          pointBorderColor: "rgba(255,255,255,0)",
+          pointHoverBackgroundColor: colors[indexColor],
+          pointBorderWidth: 20,
+          pointHoverRadius: 4,
+          pointHoverBorderWidth: 15,
+          pointRadius: 3,
+          data: [],
+          id: element.value,
+        });
+        datasetsSatus.push({
+          label: element.label.substring(0, 20)+'...',
+          showLine: false,
+          fill: true,
+          borderColor: colors[indexColor],
+          borderWidth: 1,
+          borderDash: [],
+          borderDashOffset: 0.0,
+          pointBackgroundColor: colors[indexColor],
+          pointBorderColor: "rgba(255,255,255,0)",
+          pointHoverBackgroundColor: colors[indexColor],
+          pointBorderWidth: 20,
+          pointHoverRadius: 4,
+          pointHoverBorderWidth: 15,
+          pointRadius: 3,
+          data: [],
+          id: element.value,
+        });
+        indexColor += 1;
+    })
+    data.forEach((element) => {
+      let date = new Date(element.data_hora);
+      let label = date.getDay()+' '+months[date.getMonth()]+' '+date.getHours()+':00';
+      let indexLabel = labels.indexOf(label);
+      if (indexLabel <= -1) {
+        labels.push(label);
+        indexLabel = labels.length-1;
+        datasetsTemp.forEach((e) => {
+          e.data.push(null);
+        });
+        datasetsSatus.forEach((e) => {
+          e.data.push(null);
+        })
+      }
+      datasetsTemp.forEach((e) => {
+        if (e.id === element.hos_per_id) {
+          e.data[indexLabel] = element.temperatura;
+        }
+      })
+      datasetsSatus.forEach((e) => {
+        if (e.id === element.hos_per_id) {
+          e.data[indexLabel] = element.status;
+        }
+      })
+    });
+    this.setState({chartLineTemperature : {labels, datasets: datasetsTemp}});
+    this.setState({chartStatus : {labels, datasets: datasetsSatus}});
+
+    // Draw Bar Chart
+    labels = [];
+    persons.forEach((element) => {
+      labels.push(element.label.substring(0, 20)+'...');
+    })
+
+    let datasetsBarTemp = [
+      {
+        label: "Média",
+        fill: true,
+        borderWidth: 0,
+        borderDash: [],
+        borderDashOffset: 0.0,
+        data: [],
+        backgroundColor: colors,
+			  hoverBackgroundColor: colors
+      }
+    ];
+
+    datasetsTemp.forEach((element) => {
+      datasetsBarTemp[0].data.push(element.data.reduce((a, b) => a + b, 0) / element.data.length)
+    });
+
+    this.setState({chartBarTemperature : {labels, datasets: datasetsBarTemp}});
+  }
+
+  createChartEmergencies = (data, persons) => {
+    let labels = [];
+    let datasetsBarEmer = [
+      {
+        label: "Total",
+        fill: false,
+        borderWidth: 0,
+        borderDash: [],
+        borderDashOffset: 0.0,
+        data: [],
+        backgroundColor: colors,
+			  hoverBackgroundColor: colors
+      }
+    ];
+
+    persons.forEach((element) => {
+      labels.push(element.label.substring(0, 20)+'...');
+      let total = data.reduce((sum, d) => {
+        if (element.value === d.hos_per_id) {
+          sum = sum + 1;
+        }
+        return sum
+      }, 0);
+      datasetsBarEmer[0].data.push(total);
+    })
+
+    this.setState({chartEmergencies : {labels, datasets: datasetsBarEmer}, totalEmergencies: data.length});
+  }
+
+  loadDashboard = selectedPerson => {
+    let persons = [];
+    let tablePersons = [];
+    selectedPerson.forEach((element) => {
+      persons.push(element.value); 
+    });
+
+    api.get_exoesqueleto(persons).then(result => {
+      this.createChartsExoesqueleto(result, selectedPerson);
+
+      api.get_emergencies(persons).then(result => {
+        this.createChartEmergencies(result, selectedPerson);
+        this.setState({tableEmergencies: result});
+      });
+    });
+
+    this.state.persons.forEach((element) => {
+      if (persons.indexOf(element.hos_per_id) >= 0) {
+        tablePersons.push(element);
+      }
+    })
+    this.setState({tablePersons});
+  }
+
   render() {
     return (
       <>
         <div className="content">
           <Row>
             <Col xs="12">
+              <Card className="card-select">
+                <CardHeader>
+                  <Row>
+                    <Col className="text-left" sm="12">
+                      <CardTitle tag="h3">Paciente</CardTitle>
+                    </Col>
+                  </Row>
+                </CardHeader>
+                <CardBody>
+                  <Select
+                    closeMenuOnSelect={false}
+                    defaultValue={this.state.persons}
+                    isMulti
+                    label="Selecione os pacientes"
+                    name="Pacientes"
+                    options={this.state.persons}
+                    className="basic-multi-select"
+                    classNamePrefix="select"
+                  />
+                </CardBody>
+              </Card>
+            </Col>
+            <Col xs="12">
               <Card className="card-chart">
                 <CardHeader>
                   <Row>
-                    <Col className="text-left" sm="6">
-                      <h5 className="card-category">Total Shipments</h5>
-                      <CardTitle tag="h2">Performance</CardTitle>
-                    </Col>
-                    <Col sm="6">
-                      <ButtonGroup
-                        className="btn-group-toggle float-right"
-                        data-toggle="buttons"
-                      >
-                        <Button
-                          tag="label"
-                          className={classNames("btn-simple", {
-                            active: this.state.bigChartData === "data1"
-                          })}
-                          color="info"
-                          id="0"
-                          size="sm"
-                          onClick={() => this.setBgChartData("data1")}
-                        >
-                          <input
-                            defaultChecked
-                            className="d-none"
-                            name="options"
-                            type="radio"
-                          />
-                          <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
-                            Accounts
-                          </span>
-                          <span className="d-block d-sm-none">
-                            <i className="tim-icons icon-single-02" />
-                          </span>
-                        </Button>
-                        <Button
-                          color="info"
-                          id="1"
-                          size="sm"
-                          tag="label"
-                          className={classNames("btn-simple", {
-                            active: this.state.bigChartData === "data2"
-                          })}
-                          onClick={() => this.setBgChartData("data2")}
-                        >
-                          <input
-                            className="d-none"
-                            name="options"
-                            type="radio"
-                          />
-                          <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
-                            Purchases
-                          </span>
-                          <span className="d-block d-sm-none">
-                            <i className="tim-icons icon-gift-2" />
-                          </span>
-                        </Button>
-                        <Button
-                          color="info"
-                          id="2"
-                          size="sm"
-                          tag="label"
-                          className={classNames("btn-simple", {
-                            active: this.state.bigChartData === "data3"
-                          })}
-                          onClick={() => this.setBgChartData("data3")}
-                        >
-                          <input
-                            className="d-none"
-                            name="options"
-                            type="radio"
-                          />
-                          <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
-                            Sessions
-                          </span>
-                          <span className="d-block d-sm-none">
-                            <i className="tim-icons icon-tap-02" />
-                          </span>
-                        </Button>
-                      </ButtonGroup>
+                    <Col className="text-left" sm="12">
+                      <h5 className="card-category">Componente Exoesqueleto</h5>
+                      <CardTitle tag="h2">
+                        <i className="tim-icons icon-sound-wave text-info" />{" "}
+                        Temperatura Celsius (Cº)
+                      </CardTitle>
                     </Col>
                   </Row>
                 </CardHeader>
                 <CardBody>
                   <div className="chart-area">
                     <Line
-                      data={chartExample1[this.state.bigChartData]}
-                      options={chartExample1.options}
+                      data={this.state.chartLineTemperature}
+                      options={optionsTemp}
                     />
                   </div>
                 </CardBody>
@@ -159,57 +286,60 @@ class Dashboard extends React.Component {
             </Col>
           </Row>
           <Row>
-            <Col lg="4">
+            <Col lg="12">
               <Card className="card-chart">
                 <CardHeader>
-                  <h5 className="card-category">Total Shipments</h5>
+                  <h5 className="card-category">Componente Exoesqueleto</h5>
                   <CardTitle tag="h3">
-                    <i className="tim-icons icon-bell-55 text-info" />{" "}
-                    763,215
+                    <i className="tim-icons icon-sound-wave text-info" />{" "}
+                    Status (ABERTO/FECHADO)
                   </CardTitle>
                 </CardHeader>
                 <CardBody>
                   <div className="chart-area">
                     <Line
-                      data={chartExample2.data}
-                      options={chartExample2.options}
+                      data={this.state.chartStatus}
+                      options={optionsStatus}
                     />
                   </div>
                 </CardBody>
               </Card>
             </Col>
-            <Col lg="4">
-              <Card className="card-chart">
+          </Row>
+          <Row>
+            <Col lg="6">
+            <Card className="card-chart">
                 <CardHeader>
-                  <h5 className="card-category">Daily Sales</h5>
+                  <h5 className="card-category">Componente Exoesqueleto</h5>
                   <CardTitle tag="h3">
-                    <i className="tim-icons icon-delivery-fast text-primary" />{" "}
-                    3,500€
+                  <i className="tim-icons icon-sound-wave text-info" />{" "}
+                    Média Temperatura Celsius (Cº)
                   </CardTitle>
                 </CardHeader>
                 <CardBody>
                   <div className="chart-area">
                     <Bar
-                      data={chartExample3.data}
-                      options={chartExample3.options}
+                      data={this.state.chartBarTemperature}
+                      options={optionsBarTemp}
                     />
                   </div>
                 </CardBody>
               </Card>
             </Col>
-            <Col lg="4">
+            <Col lg="6">
               <Card className="card-chart">
                 <CardHeader>
-                  <h5 className="card-category">Completed Tasks</h5>
+                  <h5 className="card-category">Emergências Acionadas</h5>
                   <CardTitle tag="h3">
-                    <i className="tim-icons icon-send text-success" /> 12,100K
+                    <i className="tim-icons icon-alert-circle-exc text-info" />{" "}
+                        Emergencias:{" "}{this.state.totalEmergencies}
                   </CardTitle>
                 </CardHeader>
                 <CardBody>
                   <div className="chart-area">
-                    <Line
-                      data={chartExample4.data}
-                      options={chartExample4.options}
+                    <Doughnut
+                      data={this.state.chartEmergencies}
+                      options={optionsEmer}
                     />
                   </div>
                 </CardBody>
@@ -227,54 +357,18 @@ class Dashboard extends React.Component {
                     <thead className="text-primary">
                       <tr>
                         <th>Nome</th>
-                        <th>Country</th>
-                        <th>City</th>
-                        <th className="text-center">Salary</th>
+                        <th className="text-center">CPF</th>
+                        <th className="text-center">Cidade</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>Dakota Rice</td>
-                        <td>Niger</td>
-                        <td>Oud-Turnhout</td>
-                        <td className="text-center">$36,738</td>
+                      {this.state.tablePersons.map(person => (
+                        <tr>
+                          <td>{person.per_name}</td>
+                          <td className="text-center">{person.per_cpf}</td>
+                          <td className="text-center">{person.add_city}</td>
                       </tr>
-                      <tr>
-                        <td>Minerva Hooper</td>
-                        <td>Curaçao</td>
-                        <td>Sinaai-Waas</td>
-                        <td className="text-center">$23,789</td>
-                      </tr>
-                      <tr>
-                        <td>Sage Rodriguez</td>
-                        <td>Netherlands</td>
-                        <td>Baileux</td>
-                        <td className="text-center">$56,142</td>
-                      </tr>
-                      <tr>
-                        <td>Philip Chaney</td>
-                        <td>Korea, South</td>
-                        <td>Overland Park</td>
-                        <td className="text-center">$38,735</td>
-                      </tr>
-                      <tr>
-                        <td>Doris Greene</td>
-                        <td>Malawi</td>
-                        <td>Feldkirchen in Kärnten</td>
-                        <td className="text-center">$63,542</td>
-                      </tr>
-                      <tr>
-                        <td>Mason Porter</td>
-                        <td>Chile</td>
-                        <td>Gloucester</td>
-                        <td className="text-center">$78,615</td>
-                      </tr>
-                      <tr>
-                        <td>Jon Porter</td>
-                        <td>Portugal</td>
-                        <td>Gloucester</td>
-                        <td className="text-center">$98,615</td>
-                      </tr>
+                      ))}
                     </tbody>
                   </Table>
                 </CardBody>
@@ -283,264 +377,28 @@ class Dashboard extends React.Component {
             <Col lg="6" md="12">
               <Card className="card-tasks">
                 <CardHeader>
-                  <h6 className="title d-inline">Emergencias</h6>
-                  <p className="card-category d-inline"> Hoje</p>
-                  <UncontrolledDropdown>
-                    <DropdownToggle
-                      caret
-                      className="btn-icon"
-                      color="link"
-                      data-toggle="dropdown"
-                      type="button"
-                    >
-                      <i className="tim-icons icon-settings-gear-63" />
-                    </DropdownToggle>
-                    <DropdownMenu aria-labelledby="dropdownMenuLink" right>
-                      <DropdownItem
-                        href="#pablo"
-                        onClick={e => e.preventDefault()}
-                      >
-                        Action
-                      </DropdownItem>
-                      <DropdownItem
-                        href="#pablo"
-                        onClick={e => e.preventDefault()}
-                      >
-                        Another action
-                      </DropdownItem>
-                      <DropdownItem
-                        href="#pablo"
-                        onClick={e => e.preventDefault()}
-                      >
-                        Something else
-                      </DropdownItem>
-                    </DropdownMenu>
-                  </UncontrolledDropdown>
+                  <CardTitle tag="h4">Emergências</CardTitle>
                 </CardHeader>
                 <CardBody>
                   <div className="table-full-width table-responsive">
                     <Table>
                       <tbody>
-                        <tr>
-                          <td>
-                            <FormGroup check>
-                              <Label check>
-                                <Input defaultValue="" type="checkbox" />
-                                <span className="form-check-sign">
-                                  <span className="check" />
-                                </span>
-                              </Label>
-                            </FormGroup>
-                          </td>
-                          <td>
-                            <p className="title">Update the Documentation</p>
-                            <p className="text-muted">
-                              Dwuamish Head, Seattle, WA 8:47 AM
-                            </p>
-                          </td>
-                          <td className="td-actions text-right">
-                            <Button
-                              color="link"
-                              id="tooltip636901683"
-                              title=""
-                              type="button"
-                            >
-                              <i className="tim-icons icon-pencil" />
-                            </Button>
-                            <UncontrolledTooltip
-                              delay={0}
-                              target="tooltip636901683"
-                              placement="right"
-                            >
-                              Edit Task
-                            </UncontrolledTooltip>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <FormGroup check>
-                              <Label check>
-                                <Input
-                                  defaultChecked
-                                  defaultValue=""
-                                  type="checkbox"
-                                />
-                                <span className="form-check-sign">
-                                  <span className="check" />
-                                </span>
-                              </Label>
-                            </FormGroup>
-                          </td>
-                          <td>
-                            <p className="title">GDPR Compliance</p>
-                            <p className="text-muted">
-                              The GDPR is a regulation that requires businesses
-                              to protect the personal data and privacy of Europe
-                              citizens for transactions that occur within EU
-                              member states.
-                            </p>
-                          </td>
-                          <td className="td-actions text-right">
-                            <Button
-                              color="link"
-                              id="tooltip457194718"
-                              title=""
-                              type="button"
-                            >
-                              <i className="tim-icons icon-pencil" />
-                            </Button>
-                            <UncontrolledTooltip
-                              delay={0}
-                              target="tooltip457194718"
-                              placement="right"
-                            >
-                              Edit Task
-                            </UncontrolledTooltip>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <FormGroup check>
-                              <Label check>
-                                <Input defaultValue="" type="checkbox" />
-                                <span className="form-check-sign">
-                                  <span className="check" />
-                                </span>
-                              </Label>
-                            </FormGroup>
-                          </td>
-                          <td>
-                            <p className="title">Solve the issues</p>
-                            <p className="text-muted">
-                              Fifty percent of all respondents said they would
-                              be more likely to shop at a company
-                            </p>
-                          </td>
-                          <td className="td-actions text-right">
-                            <Button
-                              color="link"
-                              id="tooltip362404923"
-                              title=""
-                              type="button"
-                            >
-                              <i className="tim-icons icon-pencil" />
-                            </Button>
-                            <UncontrolledTooltip
-                              delay={0}
-                              target="tooltip362404923"
-                              placement="right"
-                            >
-                              Edit Task
-                            </UncontrolledTooltip>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <FormGroup check>
-                              <Label check>
-                                <Input defaultValue="" type="checkbox" />
-                                <span className="form-check-sign">
-                                  <span className="check" />
-                                </span>
-                              </Label>
-                            </FormGroup>
-                          </td>
-                          <td>
-                            <p className="title">Release v2.0.0</p>
-                            <p className="text-muted">
-                              Ra Ave SW, Seattle, WA 98116, SUA 11:19 AM
-                            </p>
-                          </td>
-                          <td className="td-actions text-right">
-                            <Button
-                              color="link"
-                              id="tooltip818217463"
-                              title=""
-                              type="button"
-                            >
-                              <i className="tim-icons icon-pencil" />
-                            </Button>
-                            <UncontrolledTooltip
-                              delay={0}
-                              target="tooltip818217463"
-                              placement="right"
-                            >
-                              Edit Task
-                            </UncontrolledTooltip>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <FormGroup check>
-                              <Label check>
-                                <Input defaultValue="" type="checkbox" />
-                                <span className="form-check-sign">
-                                  <span className="check" />
-                                </span>
-                              </Label>
-                            </FormGroup>
-                          </td>
-                          <td>
-                            <p className="title">Export the processed files</p>
-                            <p className="text-muted">
-                              The report also shows that consumers will not
-                              easily forgive a company once a breach exposing
-                              their personal data occurs.
-                            </p>
-                          </td>
-                          <td className="td-actions text-right">
-                            <Button
-                              color="link"
-                              id="tooltip831835125"
-                              title=""
-                              type="button"
-                            >
-                              <i className="tim-icons icon-pencil" />
-                            </Button>
-                            <UncontrolledTooltip
-                              delay={0}
-                              target="tooltip831835125"
-                              placement="right"
-                            >
-                              Edit Task
-                            </UncontrolledTooltip>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                            <FormGroup check>
-                              <Label check>
-                                <Input defaultValue="" type="checkbox" />
-                                <span className="form-check-sign">
-                                  <span className="check" />
-                                </span>
-                              </Label>
-                            </FormGroup>
-                          </td>
-                          <td>
-                            <p className="title">Arival at export process</p>
-                            <p className="text-muted">
-                              Capitol Hill, Seattle, WA 12:34 AM
-                            </p>
-                          </td>
-                          <td className="td-actions text-right">
-                            <Button
-                              color="link"
-                              id="tooltip217595172"
-                              title=""
-                              type="button"
-                            >
-                              <i className="tim-icons icon-pencil" />
-                            </Button>
-                            <UncontrolledTooltip
-                              delay={0}
-                              target="tooltip217595172"
-                              placement="right"
-                            >
-                              Edit Task
-                            </UncontrolledTooltip>
-                          </td>
-                        </tr>
+                        {this.state.tableEmergencies.map(emergency => (
+                          <tr>
+                            <td>
+                              <i className="tim-icons icon-alert-circle-exc text-info" />
+                            </td>
+                            <td>
+                              <p className="title">{new Date(emergency.data_hora).toLocaleString().substring(0, 16)}</p>
+                              <p className="text-muted">
+                                Mensagem: {emergency.mensagem}
+                              </p>
+                              <p className="text-muted">
+                                Paciente: {emergency.per_name}
+                              </p>
+                            </td>
+                          </tr>
+                        ))}
                       </tbody>
                     </Table>
                   </div>

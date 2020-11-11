@@ -5,7 +5,9 @@
   "homepage": "https://demos.creative-tim.com/black-dashboard-react/#/admin/dashboard",
   "dependencies": {
     "@types/react": "16.9.23",
+    "axios": "^0.21.0",
     "chart.js": "2.9.3",
+    "chroma-js": "^2.1.0",
     "classnames": "2.2.6",
     "history": "4.10.1",
     "node-sass": "4.13.1",
@@ -15,9 +17,11 @@
     "react-chartjs-2": "2.9.0",
     "react-dom": "16.13.0",
     "react-google-maps": "9.4.5",
+    "react-mui-multiselect-dropdown": "^1.0.3",
     "react-notification-alert": "0.0.12",
     "react-router-dom": "5.1.2",
     "react-scripts": "3.4.0",
+    "react-select": "^3.1.0",
     "reactstrap": "8.4.1"
   },
   "scripts": {
