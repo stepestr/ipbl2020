@@ -16,5 +16,5 @@ export abstract class PersonQueryResult {
   limit: number;
 
   @ApiProperty({ type: Person })
-  persons: Person[];
+  people: Person[];
 }

@@ -1,0 +1,38 @@
+
+[STUDIO\TOOLS\CONFIGURATIONS\Code Generator]
+
+"C:\\Users\\FJCM GAMER\\Google Drive\\ITA RESTRICT\\TRABALHOS\\SCADE\\ToArduino\\ToArduino.etp"="KCG" 
+
+[STUDIO\TOOLS\CONFIGURATIONS\Metrics and Rules Checker]
+
+"C:\\Users\\FJCM GAMER\\Google Drive\\ITA RESTRICT\\TRABALHOS\\SCADE\\ToArduino\\ToArduino.etp"="MetricRule" 
+
+[STUDIO\TOOLS\CONFIGURATIONS\Reporter]
+
+"C:\\Users\\FJCM GAMER\\Google Drive\\ITA RESTRICT\\TRABALHOS\\SCADE\\ToArduino\\ToArduino.etp"="HTML" 
+
+[STUDIO\TOOLS\CONFIGURATIONS\Timing and Stack Analysis Tools]
+
+"C:\\Users\\FJCM GAMER\\Google Drive\\ITA RESTRICT\\TRABALHOS\\SCADE\\ToArduino\\ToArduino.etp"="KCG" 
+
+[STUDIO\Workspace]
+
+"ActiveProject"="C:\\Users\\FJCM GAMER\\Google Drive\\ITA RESTRICT\\TRABALHOS\\SCADE\\ToArduino\\ToArduino.etp" 
+
+[SCADE\Editor\Shortcut]
+
+"groupNb"="0" 
+
+[SCADE\Editor\Tool]
+
+"UsePolyline"="false" 
+"TransitionKind"="strong" 
+
+[SCADE\Diff\Tool]
+
+"LastProject1"="" 
+"LastProject2"="" 
+
+[SCADE\Generator\Tool]
+
+"PragmaTarget"="" 

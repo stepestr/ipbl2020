@@ -1,51 +1,30 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
 import { Contact } from './Contact';
 import { ContactQuery } from './ContactQuery';
 import { ContactQueryResult } from './ContactQueryResult';
+import { ContactRepository } from './ContactRepository';
 
 @Injectable()
 export class ContactService {
-  constructor(@InjectRepository(Contact) private contactRepository: Repository<Contact>) {}
+  constructor(private contactRepository: ContactRepository) {}
 
   async index(queryParams: ContactQuery): Promise<ContactQueryResult> {
-    const limit = queryParams.limit ? Number(queryParams.limit) : 10;
-    const page = queryParams.page ? Number(queryParams.page) : 1;
-    queryParams.limit ? Number(queryParams.limit) : 10;
-    const query = this.contactRepository.createQueryBuilder('contact');
-    query.take(limit);
-    query.skip((page - 1) * limit);
-    queryParams.orderBy && query.orderBy(`contact.${queryParams.orderBy}`, queryParams.order);
-    const contacts = await query.getMany();
-    const count = await query.getCount();
-    const pagesAmmount = Math.ceil(count / queryParams.limit);
-    const result: ContactQueryResult = {
-      page,
-      limit,
-      count,
-      pagesAmmount,
-      contacts,
-    };
-    return result;
+    return await this.contactRepository.index(queryParams);
   }
 
   async show(id: number): Promise<Contact> {
-    return await this.contactRepository.findOne({ idContact: id });
+    return await this.contactRepository.show(id);
   }
 
   async store(data: Contact): Promise<Contact> {
-    const contact: Contact = this.contactRepository.create(data);
-    return await this.contactRepository.save(contact);
+    return await this.contactRepository.store(data);
   }
 
   async update(id: number, data: Contact): Promise<Contact> {
-    await this.contactRepository.update({ idContact: id }, data);
-    return this.show(id);
+    return await this.contactRepository.update(id, data);
   }
 
   async delete(id: number) {
-    const contact = await this.contactRepository.find({ idContact: id });
-    await this.contactRepository.remove(contact);
+    return await this.contactRepository.delete(id);
   }
 }

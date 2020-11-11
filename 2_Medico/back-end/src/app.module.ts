@@ -4,20 +4,26 @@ import { PersonModule } from './Person/PersonModule';
 import { HospitalModule } from './Hospital/HospitalModule';
 import { AddressModule } from './Address/AddressModule';
 import { EmployeeModule } from './Employee/EmployeeModule';
-import { DatabaseService } from './Database/DatabaseService';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { EmergencyModule } from './Emergency/EmergencyModule';
+import { SensorModule } from './Sensor/SensorModule';
+import { GraphQLModule } from '@nestjs/graphql';
+import { resolve } from 'path';
+import { ContactRepository } from 'src/Contact/ContactRepository';
+import { ContactResolver } from './Contact/ContactResolver';
 
 @Module({
   imports: [
-    TypeOrmModule.forRootAsync({
-      useClass: DatabaseService,
+    GraphQLModule.forRoot({
+      typePaths: ['./**/*.graphql'],
     }),
     ContactModule,
     PersonModule,
     HospitalModule,
     AddressModule,
     EmployeeModule,
+    EmergencyModule,
+    SensorModule,
   ],
-  providers: [DatabaseService],
+  providers: [],
 })
 export class AppModule {}

@@ -7,21 +7,19 @@ import { Hospital } from 'src/Hospital/Hospital';
 import { Person } from 'src/Person/Person';
 
 @Injectable()
-export class DatabaseService implements TypeOrmOptionsFactory {
+export class RelationalService implements TypeOrmOptionsFactory {
   createTypeOrmOptions(): TypeOrmModuleOptions {
     return {
-      name: 'default',
+      name: 'RelationalService',
       type: 'mysql',
       host: process.env.DATABASE_HOST,
-      port: Number(process.env.DATABASE_PORT),
+      port: Number(process.env.MYSQL_PORT),
       username: process.env.DATABASE_USER,
       password: process.env.DATABASE_PASSWORD,
       database: process.env.DATABASE_NAME,
       synchronize: true,
       dropSchema: false,
-      //logging: true,
       entities: [Address, Contact, Employee, Hospital, Person],
-      //entities: ['dist/**/*.entity.js'],
     };
   }
 }
