@@ -26,9 +26,9 @@ let optionsTemp = {
     }
   },
   tooltips: {
-    backgroundColor: "#f5f5f5",
-    titleFontColor: "#333",
-    bodyFontColor: "#666",
+    backgroundColor: '#1e1e2f',
+    titleFontColor: "#FFF",
+    bodyFontColor: "#FFF",
     bodySpacing: 4,
     xPadding: 12,
     mode: "nearest",
@@ -79,9 +79,9 @@ let optionsStatus = {
     }
   },
   tooltips: {
-    backgroundColor: "#f5f5f5",
-    titleFontColor: "#333",
-    bodyFontColor: "#666",
+    backgroundColor: '#1e1e2f',
+    titleFontColor: "#FFF",
+    bodyFontColor: "#FFF",
     bodySpacing: 4,
     xPadding: 12,
     mode: "nearest",
@@ -131,9 +131,9 @@ let optionsBarTemp = {
       display: false
     },
     tooltips: {
-      backgroundColor: "#f5f5f5",
-      titleFontColor: "#333",
-      bodyFontColor: "#666",
+      backgroundColor: '#1e1e2f',
+      titleFontColor: "#FFF",
+      bodyFontColor: "#FFF",
       bodySpacing: 4,
       xPadding: 12,
       mode: "nearest",
@@ -184,9 +184,9 @@ let optionsEmer = {
       }
     },
     tooltips: {
-      backgroundColor: "#f5f5f5",
-      titleFontColor: "#333",
-      bodyFontColor: "#666",
+      backgroundColor: '#1e1e2f',
+      titleFontColor: "#FFF",
+      bodyFontColor: "#FFF",
       bodySpacing: 4,
       xPadding: 12,
       mode: "nearest",

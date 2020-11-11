@@ -36,9 +36,10 @@ import {
   optionsStatus,
   optionsBarTemp,
   optionsEmer
-} from "variables/charts.js";
+} from "variables/options.js";
 
-const colors = ['#1f8ef1', '#00d6b4', '#ff8d72', '#e30000', '#0013e3'];
+//const colors = ['#1f8ef1', '#00d6b4', '#ff8d72', '#e30000', '#0013e3', '#8932a8', '#f2ff00'];
+const colors = ['#1EC3F7', '#1A77D6', '#2856ED', '#201AD6', '#601EF7'];
 const months = ['JAN', 'FEV', 'MAR', 'ABR', 'MAI', 'JUN', 'JUL', 'AGO', 'SET', 'OUT', 'NOV', 'DEZ'];
 
 class Dashboard extends Component {
@@ -54,6 +55,7 @@ class Dashboard extends Component {
       totalEmergencies: 0,
       selectedPersons: [],
       persons: [],
+      isLoading : true,
     };
   }
   setBgChartData = name => {
@@ -64,6 +66,7 @@ class Dashboard extends Component {
 
   componentDidMount() {
     this.loadPersons(true);
+    setInterval(() => { this.loadDashboard(this.state.selectedPersons)}, 120000);
   }
  
   loadPersons = inicial => {
@@ -74,6 +77,7 @@ class Dashboard extends Component {
       });
 
       this.setState({persons: result});
+      this.setState({selectedPersons: result});
 
       if (inicial) {
         this.loadDashboard(result);
@@ -87,7 +91,7 @@ class Dashboard extends Component {
     let datasetsTemp  = [];
     let datasetsSatus = [];
     let indexColor = 0;
-    console.log(data)
+
     persons.forEach((element) => {
       datasetsTemp.push({
           label: element.label.substring(0, 20)+'...',
@@ -108,7 +112,7 @@ class Dashboard extends Component {
         });
         datasetsSatus.push({
           label: element.label.substring(0, 20)+'...',
-          showLine: false,
+          showLine: true,
           fill: true,
           borderColor: colors[indexColor],
           borderWidth: 1,
@@ -209,19 +213,21 @@ class Dashboard extends Component {
     this.setState({chartEmergencies : {labels, datasets: datasetsBarEmer}, totalEmergencies: data.length});
   }
 
-  loadDashboard = selectedPerson => {
+  loadDashboard = selectedPersons => {
+    this.setState({isLoading: true});
     let persons = [];
     let tablePersons = [];
-    selectedPerson.forEach((element) => {
+    selectedPersons.forEach((element) => {
       persons.push(element.value); 
     });
 
     api.get_exoesqueleto(persons).then(result => {
-      this.createChartsExoesqueleto(result, selectedPerson);
+      this.createChartsExoesqueleto(result, selectedPersons);
 
       api.get_emergencies(persons).then(result => {
-        this.createChartEmergencies(result, selectedPerson);
+        this.createChartEmergencies(result, selectedPersons);
         this.setState({tableEmergencies: result});
+        this.setState({isLoading: false});
       });
     });
 
@@ -233,6 +239,12 @@ class Dashboard extends Component {
     this.setState({tablePersons});
   }
 
+  handleChange = (selectedPersons) => {
+    if (selectedPersons === null) selectedPersons = [];
+    this.setState({selectedPersons});
+    this.loadDashboard(selectedPersons);
+  };
+
   render() {
     return (
       <>
@@ -243,7 +255,7 @@ class Dashboard extends Component {
                 <CardHeader>
                   <Row>
                     <Col className="text-left" sm="12">
-                      <CardTitle tag="h3">Paciente</CardTitle>
+                      <CardTitle tag="h3">Pacientes</CardTitle>
                     </Col>
                   </Row>
                 </CardHeader>
@@ -257,6 +269,8 @@ class Dashboard extends Component {
                     options={this.state.persons}
                     className="basic-multi-select"
                     classNamePrefix="select"
+                    onChange={this.handleChange}
+                    isLoading={this.state.isLoading}
                   />
                 </CardBody>
               </Card>
@@ -363,7 +377,7 @@ class Dashboard extends Component {
                     </thead>
                     <tbody>
                       {this.state.tablePersons.map(person => (
-                        <tr>
+                        <tr key={person.hos_per_id}>
                           <td>{person.per_name}</td>
                           <td className="text-center">{person.per_cpf}</td>
                           <td className="text-center">{person.add_city}</td>

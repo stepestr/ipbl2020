@@ -11,7 +11,7 @@ export function mockasync (data, filter) {
           data_filter = data;
         }
         resolve(data_filter)
-      }, 600)
+      }, 1000)
     })
   }
   
