@@ -17,17 +17,11 @@ import classNames from "classnames";
 
 // reactstrap components
 import {
-  Button,
   Collapse,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  UncontrolledDropdown,
   Input,
   InputGroup,
   NavbarBrand,
   Navbar,
-  NavLink,
   Nav,
   Container,
   Modal
@@ -50,7 +44,7 @@ class AdminNavbar extends React.Component {
   }
   // function that adds color white/transparent to the navbar on resize (this is for the collapse)
   updateColor = () => {
-    if (window.innerWidth < 993 && this.state.collapseOpen) {
+    if ((window.innerWidth < 993) && (this.state.collapseOpen)) {
       this.setState({
         color: "bg-white"
       });
