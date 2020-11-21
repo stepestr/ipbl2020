@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { DatabaseModule } from 'src/Database/DatabaseModule';
+import { DatabaseModule } from '../Database/DatabaseModule';
 import { Hospital } from './Hospital';
 import { HospitalController } from './HospitalController';
 import { HospitalProviders } from './HospitalProviders';
@@ -9,6 +9,6 @@ import { HospitalService } from './HospitalService';
 @Module({
   imports: [DatabaseModule],
   controllers: [HospitalController],
-  providers: [HospitalService, ...HospitalProviders, HospitalRepository]
+  providers: [HospitalService, ...HospitalProviders, HospitalRepository],
 })
 export class HospitalModule {}

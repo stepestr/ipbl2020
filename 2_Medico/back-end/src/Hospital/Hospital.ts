@@ -1,10 +1,10 @@
 import { Column, Entity, JoinColumn, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { classToPlain } from 'class-transformer';
 import { IsEmpty, IsNotEmpty, IsString } from 'class-validator';
-import { Address } from 'src/Address/Address';
-import { Person } from 'src/Person/Person';
-import { Contact } from 'src/Contact/Contact';
-import { Employee } from 'src/Employee/Employee';
+import { Address } from '../Address/Address';
+import { Person } from '../Person/Person';
+import { Contact } from '../Contact/Contact';
+import { Employee } from '../Employee/Employee';
 import { ApiProperty } from '@nestjs/swagger';
 
 @Entity('hospital')

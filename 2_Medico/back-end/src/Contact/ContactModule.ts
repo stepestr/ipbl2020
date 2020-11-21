@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { DatabaseModule } from 'src/Database/DatabaseModule';
+import { DatabaseModule } from '../Database/DatabaseModule';
 import { ContactController } from './ContactController';
 import { ContactProviders } from './ContactProviders';
 import { ContactRepository } from './ContactRepository';

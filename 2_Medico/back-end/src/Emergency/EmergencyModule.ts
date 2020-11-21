@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { DatabaseModule } from 'src/Database/DatabaseModule';
+import { DatabaseModule } from '../Database/DatabaseModule';
 import { EmergencyController } from './EmergencyController';
 import { EmergencyProviders } from './EmergencyProviders';
 import { EmergencyRepository } from './EmergencyRepository';
