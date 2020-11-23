@@ -3,7 +3,7 @@ import { SensorService } from './SensorService';
 import { SensorController } from './SensorController';
 import { SensorProviders } from './SensorProviders';
 import { SensorRepository } from './SensorRepository';
-import { DatabaseModule } from 'src/Database/DatabaseModule';
+import { DatabaseModule } from '../Database/DatabaseModule';
 
 @Module({
   imports: [DatabaseModule],

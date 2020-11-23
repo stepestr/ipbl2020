@@ -1,18 +1,24 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { SensorController } from '../../src/Sensor/SensorController';
+import { INestApplication } from '@nestjs/common';
+import * as request from 'supertest';
+import { AppModule } from './../../src/app.module';
 
-describe('SensorController', () => {
-  let controller: SensorController;
+describe('AppController (e2e)', () => {
+  let app: INestApplication;
 
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      controllers: [SensorController],
+    const moduleFixture: TestingModule = await Test.createTestingModule({
+      imports: [AppModule],
     }).compile();
 
-    controller = module.get<SensorController>(SensorController);
+    app = moduleFixture.createNestApplication();
+    await app.init();
   });
 
-  it('should be defined', () => {
-    expect(controller).toBeDefined();
+  it('/ (GET)', () => {
+    return request(app.getHttpServer())
+      .get('/')
+      .expect(200)
+      .expect('Hello World!');
   });
 });

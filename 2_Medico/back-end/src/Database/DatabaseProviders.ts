@@ -1,10 +1,10 @@
 import { createConnection } from 'typeorm';
 import * as mongoose from 'mongoose';
-import { Address } from 'src/Address/Address';
-import { Contact } from 'src/Contact/Contact';
-import { Employee } from 'src/Employee/Employee';
-import { Hospital } from 'src/Hospital/Hospital';
-import { Person } from 'src/Person/Person';
+import { Address } from '../Address/Address';
+import { Contact } from '../Contact/Contact';
+import { Employee } from '../Employee/Employee';
+import { Hospital } from '../Hospital/Hospital';
+import { Person } from '../Person/Person';
 
 export const databaseProviders = [
   {

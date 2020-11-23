@@ -1,18 +1,22 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { SensorService } from '../../src/Sensor/SensorService';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
 
-describe('SensorService', () => {
-  let service: SensorService;
+describe('AppController', () => {
+  let appController: AppController;
 
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      providers: [SensorService],
+    const app: TestingModule = await Test.createTestingModule({
+      controllers: [AppController],
+      providers: [AppService],
     }).compile();
 
-    service = module.get<SensorService>(SensorService);
+    appController = app.get<AppController>(AppController);
   });
 
-  it('should be defined', () => {
-    expect(service).toBeDefined();
+  describe('root', () => {
+    it('should return "Hello World!"', () => {
+      expect(appController.getHello()).toBe('Hello World!');
+    });
   });
 });

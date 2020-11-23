@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { DatabaseModule } from 'src/Database/DatabaseModule';
+import { DatabaseModule } from '../Database/DatabaseModule';
 import { AddressController } from './AddressController';
 import { AddressProviders } from './AddressProviders';
 import { AddressRepository } from './AddressRepository';
