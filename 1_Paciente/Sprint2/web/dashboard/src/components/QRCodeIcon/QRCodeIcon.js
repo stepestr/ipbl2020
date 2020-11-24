@@ -15,6 +15,23 @@ import React, { Component } from "react";
 
 import icon from "assets/img/qr-code.png";
 
+var QRCode = require('qrcode.react');
+
+/* 
+Dados do Endpoint informados pelo Luan (Team Scrum #2)
+23/11/2020 às 21:20, via whatsapp do Everton
+*/
+
+var QRCodeHost = '54.196.179.100';  // Host 
+var QRCodePort = ':3000';           // Porta 
+var QRCodePath = '/api/qrcode/';    // Rota 
+var QRCodePatientId = '20';         // Mock do ID do paciente
+
+var QRCodeFullyAddress =  QRCodeHost+   // Endereço completo
+                  QRCodePort+
+                  QRCodePath+
+                  QRCodePatientId;
+
 var iconStyle = {
   width: "40px",
   height: "40px",
@@ -22,7 +39,7 @@ var iconStyle = {
   margin: '3px'
 };
 
-class QRCode extends Component {
+class QRCodeIcon extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -45,8 +62,11 @@ class QRCode extends Component {
           </div>
           <ul className="dropdown-menu show">
             <li className="header-title">PACIENTE</li>
+            
             <li className="adjustments-line">
-              <div id="qrcode"></div>
+                              
+              <QRCode value={QRCodeFullyAddress} />
+              
             </li>
           </ul>
         </div>
@@ -55,4 +75,4 @@ class QRCode extends Component {
   }
 }
 
-export default QRCode;
+export default QRCodeIcon;

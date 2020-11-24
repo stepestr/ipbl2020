@@ -24,7 +24,7 @@ import PerfectScrollbar from "perfect-scrollbar";
 import AdminNavbar from "components/Navbars/AdminNavbar.js";
 import Footer from "components/Footer/Footer.js";
 import Sidebar from "components/Sidebar/Sidebar.js";
-import QRCode from "components/QRCode/QRCode.js";
+import QRCodeIcon from "components/QRCodeIcon/QRCodeIcon.js";
 
 import routes from "routes.js";
 
@@ -143,7 +143,7 @@ class Admin extends React.Component {
             )}
           </div>
         </div>
-		    <QRCode
+		    <QRCodeIcon
           bgColor={this.state.backgroundColor}
           handleBgClick={this.handleBgClick}
         />
