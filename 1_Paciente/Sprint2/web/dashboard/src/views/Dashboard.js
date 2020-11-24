@@ -18,6 +18,7 @@ import Select from 'react-select';
 import { Line, Bar, Doughnut } from "react-chartjs-2";
 
 import api from "../services/apimock/index";
+import QRCodeIcon from "components/QRCodeIcon/QRCodeIcon.js";
 
 // reactstrap components
 import {
@@ -420,6 +421,7 @@ class Dashboard extends Component {
               </Card>
             </Col>
           </Row>
+          <QRCodeIcon persons={this.state.persons} />
         </div>
       </>
     );
