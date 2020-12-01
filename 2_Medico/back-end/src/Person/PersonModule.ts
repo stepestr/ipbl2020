@@ -5,10 +5,11 @@ import { PersonProviders } from './PersonProviders';
 import { PersonRepository } from './PersonRepository';
 import { PersonService } from './PersonService';
 import { PersonResolver } from './PersonResolver';
+import { QRCodeController } from './QRCodeController';
 
 @Module({
   imports: [DatabaseModule],
-  controllers: [PersonController],
+  controllers: [PersonController, QRCodeController],
   providers: [
     PersonService,
     ...PersonProviders,
