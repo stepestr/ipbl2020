@@ -6,7 +6,9 @@ import { PersonQueryResult } from './PersonQueryResult';
 
 @Injectable()
 export class PersonRepository {
-  constructor(@Inject('PERSON_REPOSITORY') private personRepository: Repository<Person>) {}
+  constructor(
+    @Inject('PERSON_REPOSITORY') private personRepository: Repository<Person>,
+  ) {}
 
   async index(queryParams: PersonQuery): Promise<PersonQueryResult> {
     const limit = queryParams.limit ? Number(queryParams.limit) : 10;
@@ -15,7 +17,8 @@ export class PersonRepository {
     const query = this.personRepository.createQueryBuilder('person');
     query.take(limit);
     query.skip((page - 1) * limit);
-    queryParams.orderBy && query.orderBy(`person.${queryParams.orderBy}`, queryParams.order);
+    queryParams.orderBy &&
+      query.orderBy(`person.${queryParams.orderBy}`, queryParams.order);
     const people = await query.getMany();
     const count = await query.getCount();
     const pagesAmmount = Math.ceil(count / queryParams.limit);
@@ -46,5 +49,9 @@ export class PersonRepository {
   async delete(id: number) {
     const person = await this.personRepository.find({ idPerson: id });
     await this.personRepository.remove(person);
+  }
+
+  async getAll(): Promise<Person[]> {
+    return await this.personRepository.find();
   }
 }

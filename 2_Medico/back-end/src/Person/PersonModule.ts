@@ -4,10 +4,16 @@ import { PersonController } from './PersonController';
 import { PersonProviders } from './PersonProviders';
 import { PersonRepository } from './PersonRepository';
 import { PersonService } from './PersonService';
+import { PersonResolver } from './PersonResolver';
 
 @Module({
   imports: [DatabaseModule],
   controllers: [PersonController],
-  providers: [PersonService, ...PersonProviders, PersonRepository],
+  providers: [
+    PersonService,
+    ...PersonProviders,
+    PersonRepository,
+    PersonResolver,
+  ],
 })
 export class PersonModule {}

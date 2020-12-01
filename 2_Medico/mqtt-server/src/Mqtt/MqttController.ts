@@ -23,8 +23,8 @@ export class MqttController {
 
   @EventPattern('emergencies')
   async getEmergency(@Payload() data: Emergency, @Ctx() context: MqttContext) {
-    if (this.mqttService.emergencyValidation(data)) {
-      await this.mqttService.saveEmergency(data);
-    }
+    //if (this.mqttService.emergencyValidation(data)) {
+    await this.mqttService.saveEmergency(data);
+    //}
   }
 }

@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Emergency, EmergencyService } from 'src/Emergency';
 import { Sensor, SensorService } from 'src/Sensor';
+import {} from 'bigchaindb-driver';
 
 @Injectable()
 export class MqttService {

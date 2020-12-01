@@ -1,0 +1,10 @@
+type Person {
+  idPerson: Int!
+  perName: String
+  perCpf: String
+}
+
+type Query {
+  persons: [Person!]!
+  person(idContact: Int!): Person
+}
