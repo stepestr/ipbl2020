@@ -7,14 +7,18 @@ import { EmployeeModule } from './Employee/EmployeeModule';
 import { EmergencyModule } from './Emergency/EmergencyModule';
 import { SensorModule } from './Sensor/SensorModule';
 import { GraphQLModule } from '@nestjs/graphql';
-import { resolve } from 'path';
-import { ContactRepository } from 'src/Contact/ContactRepository';
-import { ContactResolver } from './Contact/ContactResolver';
+import { MailerModule } from '@nestjs-modules/mailer';
 
 @Module({
   imports: [
     GraphQLModule.forRoot({
       typePaths: ['./**/*.graphql'],
+    }),
+    MailerModule.forRoot({
+      transport: `smtp://${process.env.MAIL_USER}:${process.env.MAIL_PASS}@${process.env.MAIL_HOST}`,
+      defaults: {
+        from: 'STEPES-TR <stepestr2020@gmail.com>',
+      },
     }),
     ContactModule,
     PersonModule,
