@@ -68,7 +68,7 @@ class QRCodeIcon extends Component {
             <img style={iconStyle} src={icon} alt="qrcode"></img>
           </div>
           <ul className="dropdown-menu show">
-            <li className="header-title">PACIENTE</li>
+            <li className="header-title">Selecione o Paciente</li>
             <li className="adjustments-line">
                   <Select
                     label="Selecione o paciente"
@@ -81,7 +81,7 @@ class QRCodeIcon extends Component {
             </li>
             <li className="button-container">
               <div style={canvasStyle}>
-                <QRCode value={this.state.valueQRCode} size='200' />
+                {this.state.valueQRCode !== '' ? (<QRCode value={this.state.valueQRCode} size='130' />) : null}
               </div>
             </li>
           </ul>
