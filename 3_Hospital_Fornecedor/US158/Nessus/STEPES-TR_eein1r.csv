@@ -1,0 +1,1458 @@
+Plugin ID,CVE,CVSS,Risk,Host,Protocol,Port,Name,Synopsis,Description,Solution,See Also,Plugin Output,STIG Severity,CVSS v3.0 Base Score,CVSS Temporal Score,CVSS v3.0 Temporal Score,Risk Factor,BID,XREF,MSKB,Plugin Publication Date,Plugin Modification Date,Metasploit,Core Impact,CANVAS
+"10114","CVE-1999-0524","0.0","None","35.199.110.191","icmp","0","ICMP Timestamp Request Remote Date Disclosure","It is possible to determine the exact time set on the remote host.","The remote host answers to an ICMP timestamp request.  This allows an
+attacker to know the date that is set on the targeted machine, which
+may assist an unauthenticated, remote attacker in defeating time-based
+authentication protocols.
+
+Timestamps returned from machines running Windows Vista / 7 / 2008 /
+2008 R2 are deliberately incorrect, but usually within 1000 seconds of
+the actual system time.","Filter out the ICMP timestamp requests (13), and the outgoing ICMP
+timestamp replies (14).","","The remote clock is synchronized with the local clock.
+","","0.0","","","None","","CWE:200","","1999/08/01","2019/10/04","","",""
+"10267","","","None","35.199.110.191","tcp","22","SSH Server Type and Version Information","An SSH server is listening on this port.","It is possible to obtain information about the remote SSH server by
+sending an empty authentication request.","n/a","","
+SSH version : SSH-2.0-OpenSSH_7.6p1 Ubuntu-4ubuntu0.3
+SSH supported authentication : publickey,password
+","","","","","None","","IAVT:0001-T-0933","","1999/10/12","2020/09/22","","",""
+"10287","","","None","35.199.110.191","udp","0","Traceroute Information","It was possible to obtain traceroute information.","Makes a traceroute to the remote host.","n/a","","For your information, here is the traceroute from 192.168.0.32 to 35.199.110.191 : 
+192.168.0.32
+192.168.0.1
+?
+152.255.151.102
+152.255.175.248
+?
+72.14.220.222
+216.239.58.231
+172.253.50.72
+216.239.49.80
+35.199.110.191
+
+Hop Count: 10
+","","","","","None","","","","1999/11/27","2020/08/20","","",""
+"10881","","","None","35.199.110.191","tcp","22","SSH Protocol Versions Supported","A SSH server is running on the remote host.","This plugin determines the versions of the SSH protocol supported by
+the remote SSH daemon.","n/a","","The remote SSH daemon supports the following versions of the
+SSH protocol :
+
+  - 2.0
+","","","","","None","","","","2002/03/06","2020/02/18","","",""
+"10919","","","None","35.199.110.191","tcp","0","Open Port Re-check","Previously open ports are now closed.","One of several ports that were previously open are now closed or
+unresponsive.
+
+There are several possible reasons for this :
+
+  - The scan may have caused a service to freeze or stop
+    running.
+
+  - An administrator may have stopped a particular service
+    during the scanning process.
+
+This might be an availability problem related to the following :
+
+  - A network outage has been experienced during the scan,
+    and the remote network cannot be reached anymore by the
+    scanner.
+
+  - This scanner may has been blacklisted by the system
+    administrator or by an automatic intrusion detection /
+    prevention system that detected the scan.
+
+  - The remote host is now down, either because a user
+    turned it off during the scan or because a select denial
+    of service was effective.
+
+In any case, the audit of the remote host might be incomplete and may
+need to be done again.","- Increase checks_read_timeout and/or reduce max_checks.
+
+- Disable any IPS during the Nessus scan","","Port 22 was detected as being open but is now unresponsive
+","","","","","None","","IAVB:0001-B-0509","","2002/03/19","2020/09/22","","",""
+"11219","","","None","35.199.110.191","tcp","22","Nessus SYN scanner","It is possible to determine which TCP ports are open.","This plugin is a SYN 'half-open' port scanner.  It shall be reasonably
+quick even against a firewalled target. 
+
+Note that SYN scans are less intrusive than TCP (full connect) scans
+against broken services, but they might cause problems for less robust
+firewalls and also leave unclosed connections on the remote target, if
+the network is loaded.","Protect your target with an IP filter.","","Port 22/tcp was found to be open","","","","","None","","","","2009/02/04","2020/09/14","","",""
+"11219","","","None","35.199.110.191","tcp","9000","Nessus SYN scanner","It is possible to determine which TCP ports are open.","This plugin is a SYN 'half-open' port scanner.  It shall be reasonably
+quick even against a firewalled target. 
+
+Note that SYN scans are less intrusive than TCP (full connect) scans
+against broken services, but they might cause problems for less robust
+firewalls and also leave unclosed connections on the remote target, if
+the network is loaded.","Protect your target with an IP filter.","","Port 9000/tcp was found to be open","","","","","None","","","","2009/02/04","2020/09/14","","",""
+"11919","","","None","35.199.110.191","tcp","9000","HMAP Web Server Fingerprinting","HMAP fingerprints the remote HTTP server.","Nessus was able to identify the remote web server type by sending
+several valid and invalid HTTP requests. In some cases, its version
+can also be approximated, as well as some options.","n/a","http://www.nessus.org/u?05d4ce87
+http://seclab.cs.ucdavis.edu/papers/hmap-thesis.pdf
+http://projects.webappsec.org/w/page/13246925/Fingerprinting","
+Nessus was not able to exactly identify this server. It might be :
+
+Microsoft-IIS/5 (OWA on Exchange 5.5)
+
+The fingerprint differs from the known signatures on 3 point(s).
+
+If you know what this server is and if you are using an up to date version
+of this script, please send this signature to www-signatures@nessus.org :
+
+400:400:200:400:400:400:400:400:400:400:400:400:404:404:404:404:404:404:200:404::: [R] 
+Including these headers :
+
+X-Content-Type-Options: nosniff
+X-Xss-Protection: 1; mode=block
+
+Try to provide as much information as you can - software & operating
+system release, sub-version, patch numbers, and specific configuration
+options, if any.","","","","","None","","","","2003/11/11","2020/06/12","","",""
+"11936","","","None","35.199.110.191","tcp","0","OS Identification","It is possible to guess the remote operating system.","Using a combination of remote probes (e.g., TCP/IP, SMB, HTTP, NTP,
+SNMP, etc.), it is possible to guess the name of the remote operating
+system in use. It is also possible sometimes to guess the version of
+the operating system.","n/a","","
+Remote operating system : Linux Kernel 4.15 on Ubuntu 18.04 (bionic)
+Confidence level : 95
+Method : SSH
+
+ 
+The remote host is running Linux Kernel 4.15 on Ubuntu 18.04 (bionic)","","","","","None","","","","2003/12/09","2020/03/09","","",""
+"12053","","","None","35.199.110.191","tcp","0","Host Fully Qualified Domain Name (FQDN) Resolution","It was possible to resolve the name of the remote host.","Nessus was able to resolve the fully qualified domain name (FQDN) of
+the remote host.","n/a","","
+35.199.110.191 resolves as 191.110.199.35.bc.googleusercontent.com.
+","","","","","None","","","","2004/02/11","2017/04/14","","",""
+"19506","","","None","35.199.110.191","tcp","0","Nessus Scan Information","This plugin displays information about the Nessus scan.","This plugin displays, for each tested host, information about the
+scan itself :
+
+  - The version of the plugin set.
+  - The type of scanner (Nessus or Nessus Home).
+  - The version of the Nessus Engine.
+  - The port scanner(s) used.
+  - The port range scanned.
+  - Whether credentialed or third-party patch management
+    checks are possible.
+  - Whether the display of superseded patches is enabled
+  - The date of the scan.
+  - The duration of the scan.
+  - The number of hosts scanned in parallel.
+  - The number of checks done in parallel.","n/a","","Information about this scan : 
+
+Nessus version : 8.12.1
+Plugin feed version : 202012041017
+Scanner edition used : Nessus Home
+Scan type : Normal
+Scan policy used : Advanced Scan
+Scanner IP : 192.168.0.32
+Port scanner(s) : nessus_syn_scanner 
+Port range : default
+Thorough tests : no
+Experimental tests : no
+Paranoia level : 1
+Report verbosity : 1
+Safe checks : no
+Optimize the test : yes
+Credentialed checks : no
+Patch management checks : None
+Display superseded patches : yes (supersedence plugin launched)
+CGI scanning : enabled
+Web application tests : enabled
+Web app tests -  Test mode : some_pairs
+Web app tests -  Try all HTTP methods : yes
+Web app tests -  Maximum run time : 5 minutes.
+Web app tests -  Stop at first flaw : never
+Max hosts : 100
+Max checks : 5
+Recv timeout : 5
+Backports : None
+Allow post-scan editing: Yes
+Scan Start Date : 2020/12/4 8:38 EST
+Scan duration : 467 sec
+","","","","","None","","","","2005/08/26","2020/08/27","","",""
+"22964","","","None","35.199.110.191","tcp","22","Service Detection","The remote service could be identified.","Nessus was able to identify the remote service by its banner or by
+looking at the error message it sends when it receives an HTTP
+request.","n/a","","An SSH server is running on this port.","","","","","None","","","","2007/08/19","2020/11/19","","",""
+"22964","","","None","35.199.110.191","tcp","9000","Service Detection","The remote service could be identified.","Nessus was able to identify the remote service by its banner or by
+looking at the error message it sends when it receives an HTTP
+request.","n/a","","A web server is running on this port.","","","","","None","","","","2007/08/19","2020/11/19","","",""
+"24260","","","None","35.199.110.191","tcp","9000","HyperText Transfer Protocol (HTTP) Information","Some information about the remote HTTP configuration can be extracted.","This test gives some information about the remote HTTP protocol - the
+version used, whether HTTP Keep-Alive and HTTP pipelining are enabled,
+etc... 
+
+This test is informational only and does not denote any security
+problem.","n/a","","
+Response Code : HTTP/1.1 200 OK
+
+Protocol version : HTTP/1.1
+SSL : no
+Keep-Alive : no
+Options allowed : (Not implemented)
+Headers :
+
+  Accept-Ranges: bytes
+  Cache-Control: max-age=31536000
+  Content-Length: 23167
+  Content-Type: text/html; charset=utf-8
+  Last-Modified: Mon, 31 Aug 2020 09:04:27 GMT
+  X-Content-Type-Options: nosniff
+  X-Xss-Protection: 1; mode=block
+  Date: Fri, 04 Dec 2020 13:43:14 GMT
+  Connection: close
+  
+Response Body :
+
+<!DOCTYPE html
+><html lang=""en"" ng-app=""portainer"">
+  <head>
+    <meta charset=""utf-8"" />
+    <title>Portainer</title>
+    <meta name=""description"" content="""" />
+    <meta name=""author"" content=""Portainer.io"" />
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src=""//html5shim.googlecode.com/svn/trunk/html5.js""></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <link rel=""apple-touch-icon"" sizes=""180x180"" href=""dc4d092847be46242d8c013d1bc7c494.png"" />
+    <link rel=""icon"" type=""image/png"" sizes=""32x32"" href=""5ba13dcb526292ae707310a54e103cd1.png"" />
+    <link rel=""icon"" type=""image/png"" sizes=""16x16"" href=""f9508a64a1beb81be174e194573f7450.png"" />
+    <link rel=""mask-icon"" href=""07745d55b001c85826eedd479285cdbb.svg"" color=""#5bbad5"" />
+    <link rel=""shortcut icon"" href=""data:image/vnd.microsoft.icon;base64,AAABAAMAMDAAAAEAIACoJQAANgAAACAgAAABACAAqBAAAN4lAAAQEAAAAQAgAGgEAACGNgAAKAAAADAAAABgAAAAAQAgAAAAAAAAJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/aOAQAAAAAAAAAAAAAAAAAAAAA/9o4BAAAAAAAAAAAAAAAAP/aOAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/aOAT/2jgEAAAAAP/aOAT/2jh8/9o4x//aONj/2jjH/9o4fP/aOBoAAAAAAAAAAAAAAAD/2jgE/9o4BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/2jgEAAAAAAAAAAAAAAAA/9o4BP/aOMf/2jj//9o4///aOP//2jj//9o4///aONj/2jgy/9o4fP/aONj/2jjw/9o42P/aOK3/2jgaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/9o4Gv/aOFr/2jhG/9o4rf/aOP//2jj//9o4///aOP//2jj//9o4///aOP//2jjw/9o4///aOP//2jj//9o4///aOP//2jjw/9o4MgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/2jh8/9o48P/aOP//2jj//9o4///aOP//2jj//9o4///aOP//2jj//9o4///aOP//2jj//9o4///aOP//2jj//9o4///aOP//2jj//9o42P/aOAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/aOJL/2jj//9o4///aOP//2jj//9o4///aOP//2jj//9o4///aOP//2jj//9o4///aOP//2jj//9o4///aOP//2jj//9o4///aOP//2jj//9o4///aOFoAAAAA/9o4BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/9o4Mv/aOP//2jj//9o4///aOP//2jj//9o4///aOP//2jj//9o4///aOP//2jj//9o4///aOP//2jj//9o4///aOP//2jj//9o4///aOP//2jj//9o4///aOJIAAAAA/9o4BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/aOAQAAAAA/9o4fP/aOP//2jj//9o4///aOP//2jj//9o4///aOP//2jj//9o4///aOP//2jj//9o4///aOP//2jj//9o4///aOP//2jj//9o4///aOP//2jj//9o4///aOHwAAAAA/9o4BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/aOAQAAAAA/9o4kv/aOP//2jj//9o4///aOP//2jj//9o4///aOP//2jj//9o4///aOP//2jj//9o4///aOP//2jj//9o4///aOP//2jj//9o4///aOP//2jj//9o4///aOEYAAAAA/9o4BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/aOAQAAAAA/9o4fP/aOP//2jj//9o4///aOP//2jj//9o4///aOP//2jj//9o4///aOP//2jj//9o4///aOP//2jj//9o4///aOP//2jj//9o4///aOP//2jj//9o4xwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/aOAQAAAAA/9o4Mv/aOP//2jj//9o4///aOP//2jj//9o4///aOP//2jj//9o4///aOP//2jj//9o4///aOP//2jj//9o4///aOP//2jj//9o4///aOP//2jj//9o4xwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/aOJL/2jj//9o4///aOP//2jj//9o4///aOP//2jj//9o4///aOP//2jj//9o4///aOP//2jj//9o4///aOP//2jj//9o4///aOP//2jj//9o42AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/2jiS/9o48P/aOP//2jj//9o4///aOP//2jj//9o4///aOP//2jj//9o4///aOP//2jj//9o4///aOP//2jj//9o4///aOP//2jj//9o4rQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/aOAQAAAAA/9o4Mv/aOFr/2jh8/9o4///aOP//2jj//9o4///aOP//2jj//9o4///aOP//2jj//9o4///aOP//2jj//9o4///aOP//2jj//9o4WgAAAAD/2jgEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/9o4BAAAAAD/2jha/9o48P/aONj/2jhG/9o4rf/aOP//2jj//9o4///aOP//2jj//9o4///aOP//2jj//9o4///aOP//2jj//9o4///aOP//2jitAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/2jgEAAAAAP/aOEb/2jj//9o4///aOP//2jjH/9o4Gv/aOPD/2jj//9o4///aOP//2jj//9o4///aONj/2jiS/9o48P/aOP//2jj//9o48P/aOHz/2jgaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/9o4BP/aONj/2jj//9o4///aOP//2jj//9o4kv/aOBr/2jiS/9o48P/aOPD/2jjw/9o4kv/aOEb/2jgE/9o4Gv/aOEb/2jha/9o4Gv/aOHz/2jjHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/aOAQAAAAA/9o4Rv/aOP//2jj//9o4///aOP//2jj//9o4///aOMf/2jha/9o4Rv/aOEb/2jhG/9o4fP/aOPD/2jhGAAAAAP/aODL/2jj//9o4Mv/aOK3/2jjHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/aOAQAAAAA/9o4fP/aOP//2jj//9o4///aOP//2jj//9o4///aOP//2jj//9o4///aOPD/2jj//9o4///aOP//2jh8AAAAAP/aODL/2jj//9o4Mv/aOK3/2jjHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/aOAQAAAAA/9o4kv/aOP//2jj//9o4///aOP//2jj//9o4///aOP//2jj//9o4///aOP//2jj//9o48P/aOP//2jh8AAAAAP/aODL/2jj//9o4Mv/aOK3/2jjHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/aOAQAAAAA/9o4kv/aOP//2jj//9o4///aOP//2jj//9o4///aOP//2jj//9o4///aOP//2jj//9o4///aOP//2jh8AAAAAP/aODL/2jj//9o4Mv/aOK3/2jjHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/aOAQAAAAA/9o4Wv/aOP//2jj//9o4///aOP//2jj//9o4///aOP//2jj//9o4///aOP//2jj//9o4///aOP//2jhGAAAAAP/aODL/2jj//9o4Mv/aOK3/2jjHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/9o4Gv/aONj/2jj//9o48P/aOPD/2jj//9o48P/aOPD/2jjw/9o4///aOPD/2jjw/9o4///aONj/2jgEAAAAAP/aODL/2jj//9o4Mv/aOK3/2jjHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/aOFr/2jiS/9o4fP/aOHz/2jha/9o4fP/aOHz/2jh8/9o4Wv/aOHz/2jh8/9o4kv/aOEYAAAAAAAAAAP/aODL/2jj//9o4Mv/aOK3/2jjHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/2jgEAAAAAP/aOHz/2jit/9o4rf/aOJL/2jiS/9o4rf/aOK3/2jit/9o4kv/aOK3/2jit/9o4rf/aOFoAAAAAAAAAAP/aODL/2jj//9o4Mv/aOK3/2jjHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/2jgEAAAAAP/aOHz/2jh8/9o4fP/aOHz/2jiS/9o4fP/aOHz/2jh8/9o4kv/aOHz/2jh8/9o4fP/aOFoAAAAAAAAAAP/aODL/2jj//9o4Mv/aOK3/2jjHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/2jgEAAAAAP/aOHz/2jit/9o4kv/aOJL/2jiS/9o4kv/aOJL/2jiS/9o4kv/aOK3/2jiS/9o4rf/aOFoAAAAAAAAAAP/aODL/2jj//9o4Mv/aOK3/2jjHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/aOFr/2jit/9o4rf/aOJL/2jha/9o4rf/aOK3/2jit/9o4Wv/aOHz/2jh8/9o4fP/aODIAAAAAAAAAAP/aODL/2jj//9o4Mv/aOK3/2jjHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/2jgEAAAAAP/aOHz/2jit/9o4rf/aOJL/2jh8/9o4rf/aOK3/2jit/9o4RgAAAAD/2jgEAAAAAAAAAAAAAAAAAAAAAP/aODL/2jj//9o4Mv/aOK3/2jjHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/2jgEAAAAAP/aOHz/2jiS/9o4fP/aOHz/2jiS/9o4fP/aOHz/2jiS/9o4Rv/aODL/2jgy/9o4Mv/aOBoAAAAAAAAAAP/aODL/2jj//9o4Mv/aOK3/2jjHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/2jgEAAAAAP/aOHz/2jiS/9o4kv/aOJL/2jiS/9o4kv/aOJL/2jiS/9o4kv/aOMf/2jit/9o4x//aOFoAAAAAAAAAAP/aODL/2jj//9o4Mv/aOK3/2jjHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/aOFr/2jiS/9o4kv/aOHz/2jha/9o4kv/aOJL/2jiS/9o4fP/aOJL/2jh8/9o4fP/aOFoAAAAAAAAAAP/aODL/2jj//9o4Mv/aOK3/2jjHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/aOAQAAAAA/9o4Rv/aOK3/2jiS/9o4kv/aOFoAAAAAAAAAAP/aODL/2jj//9o4Mv/aOK3/2jjHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/2jgE/9o4BP/aOAQAAAAA/9o4BP/aOAQAAAAA/9o4Wv/aOMf/2jh8/9o4x//aOHwAAAAAAAAAAP/aODL/2jj//9o4Mv/aOK3/2jjHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/9o4BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/aOAQAAAAA/9o4Wv/aOHwAAAAA/9o4Wv/aOHwAAAAAAAAAAP/aODL/2jj//9o4Mv/aOK3/2jjHAAAAAP/aOAT/2jgEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/aOAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/aOAQAAAAA/9o4Wv/aOHwAAAAA/9o4Wv/aOHwAAAAAAAAAAP/aODL/2jj//9o4Mv/aOK3/2jjHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/2jga/9o4Mv/aODL/2jgy/9o4Mv/aODL/2jgy/9o4Mv/aODL/2jga/9o4fP/aOJL/2jga/9o4fP/aOJL/2jga/9o4Mv/aOFr/2jj//9o4Wv/aOMf/2jjY/9o4Gv/aODL/2jgy/9o4Mv/aODL/2jgy/9o4Mv/aODL/2jgy/9o4Mv/aODL/2jgEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/9o4BAAAAAD/2jh8/9o4///aOP//2jj//9o4///aOP//2jj//9o4///aOP//2jj//9o4///aOP//2jj//9o4///aOP//2jj//9o4///aOP//2jj//9o4///aOP//2jj//9o4///aOP//2jj//9o4///aOP//2jj//9o4///aOP//2jj//9o4///aOP//2jhGAAAAAP/aOAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/2jga/9o4Rv/aOEb/2jhG/9o4Rv/aOEb/2jh8/9o48P/aOP//2jjH/9o4Rv/aODL/2jhG/9o4Rv/aOEb/2jhG/9o4Rv/aOFr/2jj//9o4fP/aODL/2jhG/9o4Rv/aOEb/2jhG/9o4Mv/aOEb/2jjH/9o4///aOPD/2jh8/9o4Rv/aOEb/2jgaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/9o4Gv/aOJL/2jj//9o42P/aOEYAAAAAAAAAAAAAAAAAAAAAAAAAAP/aODL/2jj//9o4RgAAAAD/2jgEAAAAAAAAAAAAAAAA/9o4Rv/aONj/2jj//9o4kv/aOBoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/9o4BP/aOAT/2jgE/9o4BP/aOAT/2jgEAAAAAAAAAAD/2jgy/9o4x//aOP//2jjH/9o4MgAAAAD/2jgEAAAAAP/aODL/2jj//9o4RgAAAAD/2jgEAAAAAP/aODL/2jjH/9o4///aOMf/2jgyAAAAAAAAAAD/2jgE/9o4BP/aOAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/aOAQAAAAAAAAAAP/aOFr/2jjw/9o4///aOJL/2jgaAAAAAP/aODL/2jj//9o4RgAAAAD/2jga/9o4kv/aOP//2jjw/9o4WgAAAAAAAAAA/9o4BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/2jgE/9o4BAAAAAD/2jgE/9o4fP/aOP//2jjw/9o4Wv/aODL/2jj//9o4Rv/aOFr/2jjw/9o4///aOHz/2jgEAAAAAP/aOAT/2jgEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/aOAQAAAAAAAAAAP/aOBr/2jit/9o4///aOPD/2jj//9o48P/aOP//2jit/9o4GgAAAAAAAAAA/9o4BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/9o4BAAAAAAAAAAA/9o4Mv/aONj/2jj//9o42P/aOEYAAAAAAAAAAP/aOAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/2jgEAAAAAP/aODL/2jj//9o4RgAAAAD/2jgEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/aODL/2jjw/9o4RgAAAAD/2jgEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/2jgEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP///////wAA//+P////AAD//gMP//8AAP/8AAf//wAA/+AAA///AAD/gAAD//8AAP+AAAH//wAA/4AAA///AAD/AAAD//8AAP+AAAP//wAA/4AAA///AAD/gAAD//8AAP/AAAP//wAA//wAB///AAD/5AAH//8AAP/CAB///wAA/4EH9///AAD/gPun//8AAP+AA6f//wAA/wADp///AAD/AAOn//8AAP+AA6f//wAA/4ADp///AAD/3/en//8AAP/AB6f//wAA//u/p///AAD/wAen//8AAP/Ef6f//wAA/8R/p///AAD/23+n//8AAP/AB6f//wAA/8xfp///AAD//8en//8AAP//16f//wAA////p///AAD///+n//8AAP//26f//wAA/wAAAAD/AAD//H+/x/8AAP/+P7+P/wAA//+Pvj//AAD//+O4//8AAP//+bP//wAA///8B///AAD///8f//8AAP///7///wAA////v///AAD///////8AACgAAAAgAAAAQAAAAAEAIAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/9o4BP/aOAT/2jgEAAAAAP/aOCP/2jhA/9o4IwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/aOAT/2jic/9o4/v/aOP7/2jj+/9o4Y//aOCP/2jic/9o4nP/aOGMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/aOED/2jiO/9o4tP/aOP7/2jj+/9o4/v/aOP7/2jj+/9o4/v/aOP7/2jj+/9o4/v/aOI4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/2jiO/9o4/v/aOP7/2jj+/9o4/v/aOP7/2jj+/9o4/v/aOP7/2jj+/9o4/v/aOP7/2jj+/9o4/v/aOCMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/9o4QP/aOP7/2jj+/9o4/v/aOP7/2jj+/9o4/v/aOP7/2jj+/9o4/v/aOP7/2jj+/9o4/v/aOP7/2jj+/9o4YwAAAAD/2jgEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/9o4BAAAAAD/2jhj/9o4/v/aOP7/2jj+/9o4/v/aOP7/2jj+/9o4/v/aOP7/2jj+/9o4/v/aOP7/2jj+/9o4/v/aOP7/2jhAAAAAAP/aOAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/2jgEAAAAAP/aOED/2jj+/9o4/v/aOP7/2jj+/9o4/v/aOP7/2jj+/9o4/v/aOP7/2jj+/9o4/v/aOP7/2jj+/9o40gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/9o4BP/aONL/2jj+/9o4/v/aOP7/2jj+/9o4/v/aOP7/2jj+/9o4/v/aOP7/2jj+/9o4/v/aOP7/2jjS/9o4BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/9o4I//aOI7/2jjS/9o4/v/aOP7/2jj+/9o4/v/aOP7/2jj+/9o4/v/aOP7/2jj+/9o4/v/aOLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/2jgE/9o4jv/aOID/2jiO/9o4/v/aOP7/2jj+/9o4/v/aOP7/2jj+/9o4/v/aOP7/2jj+/9o4QAAAAAD/2jgEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/aOJz/2jj+/9o4/v/aOGP/2ji0/9o4/v/aOP7/2jj+/9o4jv/aOI7/2jjS/9o4tP/aOID/2jgjAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/2jgj/9o4/v/aOP7/2jj+/9o46//aOID/2jiA/9o4jv/aOI7/2jiAAAAAAP/aOGP/2jhj/9o4tP/aOEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/2jgEAAAAAP/aOGP/2jj+/9o4/v/aOP7/2jj+/9o4/v/aOOv/2jjr/9o4/v/aOOsAAAAA/9o4gP/aOI7/2ji0/9o4QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/aOAQAAAAA/9o4Y//aOP7/2jj+/9o4/v/aOP7/2jj+/9o4/v/aOP7/2jj+/9o46wAAAAD/2jiA/9o4jv/aOLT/2jhAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/2jhA/9o4/v/aOP7/2jj+/9o4/v/aOP7/2jj+/9o4/v/aOP7/2jjSAAAAAP/aOID/2jiO/9o4tP/aOEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/2jiO/9o4tP/aOJz/2jic/9o4tP/aOJz/2jic/9o4tP/aOEAAAAAA/9o4gP/aOI7/2ji0/9o4QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/aOID/2jiO/9o4gP/aOI7/2jiO/9o4gP/aOI7/2jiO/9o4QAAAAAD/2jiA/9o4jv/aOLT/2jhAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/9o4gP/aOI7/2jiO/9o4jv/aOI7/2jiO/9o4nP/aOJz/2jhAAAAAAP/aOID/2jiO/9o4tP/aOEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/2jiA/9o4tP/aOID/2jiO/9o4tP/aOGP/2jhA/9o4QP/aOCMAAAAA/9o4gP/aOI7/2ji0/9o4QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/aOID/2jiO/9o4gP/aOI7/2jiO/9o4Y//aOAT/2jgj/9o4BAAAAAD/2jiA/9o4jv/aOLT/2jhAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/9o4gP/aOLT/2jiO/9o4nP/aOJz/2jiO/9o4nP/aOLT/2jhAAAAAAP/aOID/2jiO/9o4tP/aOEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/2jgj/9o4I//aOCP/2jgj/9o4I//aOED/2jiO/9o4jv/aOEAAAAAA/9o4gP/aOI7/2ji0/9o4QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/9o4BAAAAAAAAAAAAAAAAP/aOAQAAAAA/9o4QP/aOI7/2jiA/9o4YwAAAAD/2jiO/9o4jv/aOLT/2jhAAAAAAP/aOAT/2jgE/9o4BP/aOAT/2jgE/9o4BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/2jhA/9o4QP/aOCP/2jhjAAAAAP/aOID/2jiO/9o4tP/aOEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/9o4BP/aOID/2jiO/9o4gP/aOID/2jiA/9o4Y//aOJz/2ji0/9o4nP/aOLT/2jiA/9o40v/aONL/2jjS/9o4nP/aOID/2jiO/9o4gP/aOGP/2jiA/9o4jv/aOGMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/2jgE/9o4jv/aOJz/2jiO/9o4nP/aOOv/2jj+/9o4tP/aOID/2jiO/9o4jv/aOI7/2jjS/9o40v/aOID/2jic/9o4jv/aOID/2ji0/9o4/v/aOOv/2jic/9o4gAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/9o4BP/aOID/2jjS/9o4YwAAAAD/2jgEAAAAAP/aOID/2jicAAAAAP/aOAQAAAAA/9o4Y//aONL/2jiA/9o4BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/aOAT/2jgE/9o4BP/aOAQAAAAAAAAAAP/aOCP/2ji0/9o46//aOGMAAAAA/9o4gP/aOJwAAAAA/9o4Y//aOOv/2ji0/9o4IwAAAAAAAAAA/9o4BP/aOAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/2jgEAAAAAAAAAAD/2jhA/9o40v/aOLT/2jic/9o4tP/aOLT/2jjr/9o4QAAAAAAAAAAA/9o4BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/9o4BAAAAAAAAAAA/9o4Y//aOOv/2jjr/9o4gP/aOAQAAAAA/9o4BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/9o4BP/aOAQAAAAA/9o4gP/aOJwAAAAA/9o4BP/aOAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/2jgj/9o4IwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA///////DP///AA///AAP//wAD//8AA///AAP//wAD//+AA///gAf//xAH//8Ad///AEf//wBH//8AR///AMf//wDH//8Ax///B8f//wfH//8Ax////Mf///zH////x//+CABP/gAAB//zzz///Mz///8D////x////8///////8oAAAAEAAAACAAAAABACAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/2jh4/9o4rv/aODX/2jhW/9o4HwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/aOGj/2jjL/9o4/f/aOP3/2jj9/9o4/f/aOOL/2jgMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/aODX/2jj9/9o4/f/aOP3/2jj9/9o4/f/aOP3/2jj9/9o4NQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/2jgf/9o44v/aOP3/2jj9/9o4/f/aOP3/2jj9/9o44v/aOAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/aOFb/2jjL/9o4/f/aOP3/2jj9/9o4/f/aOK4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/aOAz/2jji/9o4y//aOK7/2jjL/9o4eP/aOJL/2jhoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/2jg1/9o4/f/aOP3/2jj9/9o4/f/aOHj/2jh4/9o4eAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/9o4DP/aOMv/2jjL/9o4y//aOOL/2jg1/9o4hv/aOHgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/2jh4/9o4hv/aOIb/2jiS/9o4H//aOIb/2jh4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/9o4kv/aOK7/2jiG/9o4Nf/aOAz/2jiG/9o4eAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/aOFb/2jhW/9o4aP/aOJL/2jgf/9o4hv/aOHgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/aOB//2jho/9o4H//aOIb/2jh4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/2jg1/9o4eP/aOJL/2jiu/9o4eP/aOHj/2jjL/9o4kv/aOGj/2jiu/9o4kv/aODUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/2jgM/9o4aP/aOIb/2jgf/9o4aP/aOB//2jiG/9o4aP/aOAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/2jgf/9o4eP/aOMv/2jh4/9o4HwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/2jhWAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP3/AADwPwAA4D8AAOA/AADwPwAA4X8AAOH/AADhfwAA8X8AAON/AAD9fwAA/38AAPMnAAD93wAA/38AAP//AAA="" />
+    <meta name=""msapplication-config"" content=""4806ce9049e1e082dd3da4063ceb0eea.xml"" />
+    <meta name=""theme-color"" content=""#ffffff"" />
+  <link href=""vendor.1.css"" rel=""stylesheet""><link href=""main.df5487ae7f62fcda715d.css"" rel=""stylesheet""></head>
+
+  <body ng-controller=""MainController"">
+    <div
+      id=""page-wrapper""
+      ng-class=""{
+        open: toggle && ['portainer.auth', 'portainer.init.admin', 'portainer.init.endpoint'].indexOf($state.current.name) === -1,
+        nopadding: ['portainer.auth', 'portainer.init.admin', 'portainer.init.endpoint', 'portainer.logout'].indexOf($state.current.name) > -1 || applicationState.loading
+      }""
+      ng-cloak
+    >
+      <div id=""sideview"" ui-view=""sidebar"" ng-if=""!applicationState.loading""></div>
+
+      <div id=""content-wrapper"">
+        <div class=""page-content"">
+          <div class=""page-wrapper"" ng-if=""applicationState.loading"">
+            <!-- loading box -->
+            <div class=""container simple-box"">
+              <div class=""col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3"">
+                <!-- loading box logo -->
+                <div class=""row"">
+                  <img ng-if=""logo"" ng-src=""{{ logo }}"" class=""simple-box-logo"" />
+                  <img ng-if=""!logo"" src=""5da83cfb4883a59354abeff852cb7394.png"" class=""simple-box-logo"" alt=""Portainer"" />
+                </div>
+                <!-- !loading box logo -->
+                <!-- panel -->
+                <div class=""row"" style=""text-align: center;"">
+                  Loading Portainer...
+                  <i class=""fa fa-cog fa-spin"" style=""margin-left: 5px;""></i>
+                </div>
+                <!-- !panel -->
+              </div>
+            </div>
+            <!-- !loading box -->
+          </div>
+
+          <!-- Main Content -->
+          <div id=""view"" ui-view=""content"" ng-if=""!applicationState.loading""></div> </div
+        ><!-- End Page Content --> </div
+      ><!-- End Content Wrapper --> </div
+    ><!-- End Page Wrapper -->
+  <script type=""text/javascript"" src=""vendor.df5487ae7f62fcda715d.js""></script><script type=""text/javascript"" src=""main.df5487ae7f62fcda715d.js""></script></body></html
+>
+","","","","","None","","","","2007/01/30","2019/11/22","","",""
+"25220","","","None","35.199.110.191","tcp","0","TCP/IP Timestamps Supported","The remote service implements TCP timestamps.","The remote host implements TCP timestamps, as defined by RFC1323.  A
+side effect of this feature is that the uptime of the remote host can
+sometimes be computed.","n/a","http://www.ietf.org/rfc/rfc1323.txt","","","","","","None","","","","2007/05/16","2019/03/06","","",""
+"43111","","","None","35.199.110.191","tcp","9000","HTTP Methods Allowed (per directory)","This plugin determines which HTTP methods are allowed on various CGI
+directories.","By calling the OPTIONS method, it is possible to determine which HTTP
+methods are allowed on each directory.
+
+The following HTTP methods are considered insecure:
+  PUT, DELETE, CONNECT, TRACE, HEAD
+
+Many frameworks and languages treat 'HEAD' as a 'GET' request, albeit
+one without any body in the response. If a security constraint was
+set on 'GET' requests such that only 'authenticatedUsers' could
+access GET requests for a particular servlet or resource, it would be
+bypassed for the 'HEAD' version. This allowed unauthorized blind
+submission of any privileged GET request.
+
+As this list may be incomplete, the plugin also tests - if 'Thorough
+tests' are enabled or 'Enable web applications tests' is set to 'yes'
+in the scan policy - various known HTTP methods on each directory and
+considers them as unsupported if it receives a response code of 400,
+403, 405, or 501.
+
+Note that the plugin output is only informational and does not
+necessarily indicate the presence of any security vulnerabilities.","n/a","http://www.nessus.org/u?d9c03a9a
+http://www.nessus.org/u?b019cbdb
+https://www.owasp.org/index.php/Test_HTTP_Methods_(OTG-CONFIG-006)","
+Based on tests of each method : 
+
+  - HTTP methods ACL BASELINE-CONTROL BCOPY BDELETE BMOVE BPROPFIND 
+    BPROPPATCH CHECKIN CHECKOUT CONNECT COPY DEBUG DELETE GET HEAD 
+    INDEX LABEL LOCK MERGE MKACTIVITY MKCOL MKWORKSPACE MOVE NOTIFY 
+    OPTIONS ORDERPATCH PATCH POLL POST PROPFIND PROPPATCH PUT REPORT 
+    RPC_IN_DATA RPC_OUT_DATA SEARCH SUBSCRIBE TRACE UNCHECKOUT UNLOCK 
+    UNSUBSCRIBE UPDATE VERSION-CONTROL X-MS-ENUMATTS are allowed on : 
+
+    /
+
+  - Invalid/unknown HTTP methods are allowed on :
+
+    /
+","","","","","None","","","","2009/12/10","2019/03/19","","",""
+"45590","","","None","35.199.110.191","tcp","0","Common Platform Enumeration (CPE)","It was possible to enumerate CPE names that matched on the remote
+system.","By using information obtained from a Nessus scan, this plugin reports
+CPE (Common Platform Enumeration) matches for various hardware and
+software products found on a host. 
+
+Note that if an official CPE is not available for the product, this
+plugin computes the best possible CPE based on the information
+available from the scan.","n/a","http://cpe.mitre.org/
+https://nvd.nist.gov/products/cpe","
+The remote operating system matched the following CPE : 
+
+  cpe:/o:canonical:ubuntu_linux:18.04 -> Canonical Ubuntu Linux 18.04
+
+Following application CPE matched on the remote system :
+
+  cpe:/a:openbsd:openssh:7.6
+","","","","","None","","","","2010/04/21","2020/11/17","","",""
+"50344","","","None","35.199.110.191","tcp","9000","Missing or Permissive Content-Security-Policy frame-ancestors HTTP Response Header","The remote web server does not take steps to mitigate a class of web
+application vulnerabilities.","The remote web server in some responses sets a permissive
+Content-Security-Policy (CSP) frame-ancestors response header or does
+not set one at all.
+
+The CSP frame-ancestors header has been proposed by the W3C Web
+Application Security Working Group as a way to mitigate cross-site
+scripting and clickjacking attacks.","Set a non-permissive Content-Security-Policy frame-ancestors header
+for all requested resources.","http://www.nessus.org/u?55aa8f57
+http://www.nessus.org/u?07cc2a06
+https://content-security-policy.com/
+https://www.w3.org/TR/CSP2/","
+The following pages do not set a Content-Security-Policy frame-ancestors response header or set a permissive policy:
+
+  - http://191.110.199.35.bc.googleusercontent.com:9000/
+","","","","","None","","","","2010/10/26","2018/11/15","","",""
+"50345","","","None","35.199.110.191","tcp","9000","Missing or Permissive X-Frame-Options HTTP Response Header","The remote web server does not take steps to mitigate a class of web
+application vulnerabilities.","The remote web server in some responses sets a permissive
+X-Frame-Options response header or does not set one at all.
+
+The X-Frame-Options header has been proposed by Microsoft as a way to
+mitigate clickjacking attacks and is currently supported by all major
+browser vendors","Set a properly configured X-Frame-Options header for all requested
+resources.","https://en.wikipedia.org/wiki/Clickjacking
+http://www.nessus.org/u?399b1f56","
+The following pages do not set a X-Frame-Options response header or set a permissive policy:
+
+  - http://191.110.199.35.bc.googleusercontent.com:9000/
+","","","","","None","","","","2010/10/26","2017/05/16","","",""
+"54615","","","None","35.199.110.191","tcp","0","Device Type","It is possible to guess the remote device type.","Based on the remote operating system, it is possible to determine
+what the remote system type is (eg: a printer, router, general-purpose
+computer, etc).","n/a","","Remote device type : general-purpose
+Confidence level : 95
+","","","","","None","","","","2011/05/23","2011/05/23","","",""
+"70657","","","None","35.199.110.191","tcp","22","SSH Algorithms and Languages Supported","An SSH server is listening on this port.","This script detects which algorithms and languages are supported by
+the remote service for encrypting communications.","n/a","","
+Nessus negotiated the following encryption algorithm with the server : 
+
+The server supports the following options for kex_algorithms : 
+
+  curve25519-sha256
+  curve25519-sha256@libssh.org
+  diffie-hellman-group-exchange-sha256
+  diffie-hellman-group14-sha1
+  diffie-hellman-group14-sha256
+  diffie-hellman-group16-sha512
+  diffie-hellman-group18-sha512
+  ecdh-sha2-nistp256
+  ecdh-sha2-nistp384
+  ecdh-sha2-nistp521
+
+The server supports the following options for server_host_key_algorithms : 
+
+  ecdsa-sha2-nistp256
+  rsa-sha2-256
+  rsa-sha2-512
+  ssh-ed25519
+  ssh-rsa
+
+The server supports the following options for encryption_algorithms_client_to_server : 
+
+  aes128-ctr
+  aes128-gcm@openssh.com
+  aes192-ctr
+  aes256-ctr
+  aes256-gcm@openssh.com
+  chacha20-poly1305@openssh.com
+
+The server supports the following options for encryption_algorithms_server_to_client : 
+
+  aes128-ctr
+  aes128-gcm@openssh.com
+  aes192-ctr
+  aes256-ctr
+  aes256-gcm@openssh.com
+  chacha20-poly1305@openssh.com
+
+The server supports the following options for mac_algorithms_client_to_server : 
+
+  hmac-sha1
+  hmac-sha1-etm@openssh.com
+  hmac-sha2-256
+  hmac-sha2-256-etm@openssh.com
+  hmac-sha2-512
+  hmac-sha2-512-etm@openssh.com
+  umac-128-etm@openssh.com
+  umac-128@openssh.com
+  umac-64-etm@openssh.com
+  umac-64@openssh.com
+
+The server supports the following options for mac_algorithms_server_to_client : 
+
+  hmac-sha1
+  hmac-sha1-etm@openssh.com
+  hmac-sha2-256
+  hmac-sha2-256-etm@openssh.com
+  hmac-sha2-512
+  hmac-sha2-512-etm@openssh.com
+  umac-128-etm@openssh.com
+  umac-128@openssh.com
+  umac-64-etm@openssh.com
+  umac-64@openssh.com
+
+The server supports the following options for compression_algorithms_client_to_server : 
+
+  none
+  zlib@openssh.com
+
+The server supports the following options for compression_algorithms_server_to_client : 
+
+  none
+  zlib@openssh.com
+","","","","","None","","","","2013/10/28","2017/08/28","","",""
+"91815","","","None","35.199.110.191","tcp","9000","Web Application Sitemap","The remote web server hosts linkable content that can be crawled by
+Nessus.","The remote web server contains linkable content that can be used to
+gather information about a target.","n/a","http://www.nessus.org/u?5496c8d9","
+The following sitemap was created from crawling linkable content on the target host :
+
+  - http://191.110.199.35.bc.googleusercontent.com:9000/
+  - http://191.110.199.35.bc.googleusercontent.com:9000/07745d55b001c85826eedd479285cdbb.svg
+  - http://191.110.199.35.bc.googleusercontent.com:9000/5ba13dcb526292ae707310a54e103cd1.png
+  - http://191.110.199.35.bc.googleusercontent.com:9000/dc4d092847be46242d8c013d1bc7c494.png
+  - http://191.110.199.35.bc.googleusercontent.com:9000/f9508a64a1beb81be174e194573f7450.png
+  - http://191.110.199.35.bc.googleusercontent.com:9000/main.df5487ae7f62fcda715d.css
+  - http://191.110.199.35.bc.googleusercontent.com:9000/vendor.1.css
+
+Attached is a copy of the sitemap file.
+","","","","","None","","","","2016/06/24","2016/06/24","","",""
+"110723","","","None","35.199.110.191","tcp","0","Target Credential Status by Authentication Protocol - No Credentials Provided","Nessus was able to find common ports used for local checks,
+however, no credentials were provided in the scan policy.","Nessus was not able to successfully authenticate directly to the
+remote target on an available authentication protocol. Nessus was
+able to connect to the remote port and identify that the service
+running on the port supports an authentication protocol, but Nessus
+failed to authenticate to the remote service using the provided
+credentials. There may have been a protocol failure that prevented
+authentication from being attempted or all of the provided credentials
+for the authentication protocol may be invalid. See plugin output for
+error details.
+
+Please note the following :
+
+- This plugin reports per protocol, so it is possible for
+  valid credentials to be provided for one protocol and not
+  another. For example, authentication may succeed via SSH
+  but fail via SMB, while no credentials were provided for
+  an available SNMP service.
+
+- Providing valid credentials for all available
+  authentication protocols may improve scan coverage, but
+  the value of successful authentication for a given
+  protocol may vary from target to target depending upon
+  what data (if any) is gathered from the target via that
+  protocol. For example, successful authentication via SSH
+  is more valuable for Linux targets than for Windows
+  targets, and likewise successful authentication via SMB
+  is more valuable for Windows targets than for Linux
+  targets.","n/a","","SSH was detected on port 22 but no credentials were provided.
+SSH local checks were not enabled.
+
+","","","","","None","","IAVB:0001-B-0504","","2018/06/27","2020/10/15","","",""
+"117886","","","None","35.199.110.191","tcp","0","Local Checks Not Enabled (info)","Local checks were not enabled.","Nessus did not enable local checks on the remote host. This does not
+necessarily indicate a problem with the scan. Credentials may not have
+been provided, local checks may not be available for the target, the
+target may not have been identified, or another issue may have
+occurred that prevented local checks from being enabled. See plugin
+output for details.
+
+This plugin reports informational findings related to local checks not
+being enabled. For failure information, see plugin 21745 :
+'Authentication Failure - Local Checks Not Run'.","n/a","","
+The following issues were reported :
+
+  - Plugin      : no_local_checks_credentials.nasl
+    Plugin ID   : 110723
+    Plugin Name : Target Credential Status by Authentication Protocol - No Credentials Provided
+    Message     : 
+Credentials were not provided for detected SSH service.
+","","","","","None","","IAVB:0001-B-0515","","2018/10/02","2020/09/22","","",""
+"10107","","","None","54.196.179.100","tcp","80","HTTP Server Type and Version","A web server is running on the remote host.","This plugin attempts to determine the type and the version of the
+  remote web server.","n/a","","The remote web server type is :
+
+Apache/2.4.29 (Ubuntu)","","","","","None","","IAVT:0001-T-0931","","2000/01/04","2020/10/30","","",""
+"10114","CVE-1999-0524","0.0","None","54.196.179.100","icmp","0","ICMP Timestamp Request Remote Date Disclosure","It is possible to determine the exact time set on the remote host.","The remote host answers to an ICMP timestamp request.  This allows an
+attacker to know the date that is set on the targeted machine, which
+may assist an unauthenticated, remote attacker in defeating time-based
+authentication protocols.
+
+Timestamps returned from machines running Windows Vista / 7 / 2008 /
+2008 R2 are deliberately incorrect, but usually within 1000 seconds of
+the actual system time.","Filter out the ICMP timestamp requests (13), and the outgoing ICMP
+timestamp replies (14).","","The remote clock is synchronized with the local clock.
+","","0.0","","","None","","CWE:200","","1999/08/01","2019/10/04","","",""
+"10267","","","None","54.196.179.100","tcp","22","SSH Server Type and Version Information","An SSH server is listening on this port.","It is possible to obtain information about the remote SSH server by
+sending an empty authentication request.","n/a","","
+SSH version : SSH-2.0-OpenSSH_7.6p1 Ubuntu-4ubuntu0.3
+SSH supported authentication : publickey
+","","","","","None","","IAVT:0001-T-0933","","1999/10/12","2020/09/22","","",""
+"10287","","","None","54.196.179.100","udp","0","Traceroute Information","It was possible to obtain traceroute information.","Makes a traceroute to the remote host.","n/a","","For your information, here is the traceroute from 192.168.0.32 to 54.196.179.100 : 
+192.168.0.32
+192.168.0.1
+?
+152.255.151.102
+187.100.186.96
+84.16.7.218
+94.142.98.155
+213.140.43.206
+216.184.113.139
+52.93.236.47
+52.93.37.44
+?
+
+Hop Count: 11
+","","","","","None","","","","1999/11/27","2020/08/20","","",""
+"10719","","","None","54.196.179.100","tcp","3306","MySQL Server Detection","A database server is listening on the remote port.","The remote host is running MySQL, an open source database server.","n/a","","
+Version  : 5.7.32-0ubuntu0.18.04.1
+Protocol : 10
+Server Status : SERVER_STATUS_AUTOCOMMIT
+Server Capabilities : 
+  CLIENT_LONG_PASSWORD (new more secure passwords)
+  CLIENT_FOUND_ROWS (Found instead of affected rows)
+  CLIENT_LONG_FLAG (Get all column flags)
+  CLIENT_CONNECT_WITH_DB (One can specify db on connect)
+  CLIENT_NO_SCHEMA (Don't allow database.table.column)
+  CLIENT_COMPRESS (Can use compression protocol)
+  CLIENT_ODBC (ODBC client)
+  CLIENT_LOCAL_FILES (Can use LOAD DATA LOCAL)
+  CLIENT_IGNORE_SPACE (Ignore spaces before ""("")
+  CLIENT_PROTOCOL_41 (New 4.1 protocol)
+  CLIENT_INTERACTIVE (This is an interactive client)
+  CLIENT_SSL (Switch to SSL after handshake)
+  CLIENT_SIGPIPE (IGNORE sigpipes)
+  CLIENT_TRANSACTIONS (Client knows about transactions)
+  CLIENT_RESERVED (Old flag for 4.1 protocol)
+  CLIENT_SECURE_CONNECTION (New 4.1 authentication)
+","","","","","None","","IAVT:0001-T-0802","","2001/08/13","2020/09/22","","",""
+"10881","","","None","54.196.179.100","tcp","22","SSH Protocol Versions Supported","A SSH server is running on the remote host.","This plugin determines the versions of the SSH protocol supported by
+the remote SSH daemon.","n/a","","The remote SSH daemon supports the following versions of the
+SSH protocol :
+
+  - 2.0
+","","","","","None","","","","2002/03/06","2020/02/18","","",""
+"11032","","","None","54.196.179.100","tcp","80","Web Server Directory Enumeration","It is possible to enumerate directories on the web server.","This plugin attempts to determine the presence of various common
+directories on the remote web server.  By sending a request for a
+directory, the web server response code indicates if it is a valid
+directory or not.","n/a","http://projects.webappsec.org/w/page/13246953/Predictable%20Resource%20Location","
+The following directories were discovered:
+/icons
+
+While this is not, in and of itself, a bug, you should manually inspect 
+these directories to ensure that they are in compliance with company
+security standards
+","","","","","None","","OWASP:OWASP-CM-006","","2002/06/26","2020/06/12","","",""
+"11219","","","None","54.196.179.100","tcp","22","Nessus SYN scanner","It is possible to determine which TCP ports are open.","This plugin is a SYN 'half-open' port scanner.  It shall be reasonably
+quick even against a firewalled target. 
+
+Note that SYN scans are less intrusive than TCP (full connect) scans
+against broken services, but they might cause problems for less robust
+firewalls and also leave unclosed connections on the remote target, if
+the network is loaded.","Protect your target with an IP filter.","","Port 22/tcp was found to be open","","","","","None","","","","2009/02/04","2020/09/14","","",""
+"11219","","","None","54.196.179.100","tcp","80","Nessus SYN scanner","It is possible to determine which TCP ports are open.","This plugin is a SYN 'half-open' port scanner.  It shall be reasonably
+quick even against a firewalled target. 
+
+Note that SYN scans are less intrusive than TCP (full connect) scans
+against broken services, but they might cause problems for less robust
+firewalls and also leave unclosed connections on the remote target, if
+the network is loaded.","Protect your target with an IP filter.","","Port 80/tcp was found to be open","","","","","None","","","","2009/02/04","2020/09/14","","",""
+"11219","","","None","54.196.179.100","tcp","1883","Nessus SYN scanner","It is possible to determine which TCP ports are open.","This plugin is a SYN 'half-open' port scanner.  It shall be reasonably
+quick even against a firewalled target. 
+
+Note that SYN scans are less intrusive than TCP (full connect) scans
+against broken services, but they might cause problems for less robust
+firewalls and also leave unclosed connections on the remote target, if
+the network is loaded.","Protect your target with an IP filter.","","Port 1883/tcp was found to be open","","","","","None","","","","2009/02/04","2020/09/14","","",""
+"11219","","","None","54.196.179.100","tcp","3306","Nessus SYN scanner","It is possible to determine which TCP ports are open.","This plugin is a SYN 'half-open' port scanner.  It shall be reasonably
+quick even against a firewalled target. 
+
+Note that SYN scans are less intrusive than TCP (full connect) scans
+against broken services, but they might cause problems for less robust
+firewalls and also leave unclosed connections on the remote target, if
+the network is loaded.","Protect your target with an IP filter.","","Port 3306/tcp was found to be open","","","","","None","","","","2009/02/04","2020/09/14","","",""
+"11219","","","None","54.196.179.100","tcp","8000","Nessus SYN scanner","It is possible to determine which TCP ports are open.","This plugin is a SYN 'half-open' port scanner.  It shall be reasonably
+quick even against a firewalled target. 
+
+Note that SYN scans are less intrusive than TCP (full connect) scans
+against broken services, but they might cause problems for less robust
+firewalls and also leave unclosed connections on the remote target, if
+the network is loaded.","Protect your target with an IP filter.","","Port 8000/tcp was found to be open","","","","","None","","","","2009/02/04","2020/09/14","","",""
+"11219","","","None","54.196.179.100","tcp","9000","Nessus SYN scanner","It is possible to determine which TCP ports are open.","This plugin is a SYN 'half-open' port scanner.  It shall be reasonably
+quick even against a firewalled target. 
+
+Note that SYN scans are less intrusive than TCP (full connect) scans
+against broken services, but they might cause problems for less robust
+firewalls and also leave unclosed connections on the remote target, if
+the network is loaded.","Protect your target with an IP filter.","","Port 9000/tcp was found to be open","","","","","None","","","","2009/02/04","2020/09/14","","",""
+"11219","","","None","54.196.179.100","tcp","27017","Nessus SYN scanner","It is possible to determine which TCP ports are open.","This plugin is a SYN 'half-open' port scanner.  It shall be reasonably
+quick even against a firewalled target. 
+
+Note that SYN scans are less intrusive than TCP (full connect) scans
+against broken services, but they might cause problems for less robust
+firewalls and also leave unclosed connections on the remote target, if
+the network is loaded.","Protect your target with an IP filter.","","Port 27017/tcp was found to be open","","","","","None","","","","2009/02/04","2020/09/14","","",""
+"11219","","","None","54.196.179.100","tcp","32768","Nessus SYN scanner","It is possible to determine which TCP ports are open.","This plugin is a SYN 'half-open' port scanner.  It shall be reasonably
+quick even against a firewalled target. 
+
+Note that SYN scans are less intrusive than TCP (full connect) scans
+against broken services, but they might cause problems for less robust
+firewalls and also leave unclosed connections on the remote target, if
+the network is loaded.","Protect your target with an IP filter.","","Port 32768/tcp was found to be open","","","","","None","","","","2009/02/04","2020/09/14","","",""
+"11936","","","None","54.196.179.100","tcp","0","OS Identification","It is possible to guess the remote operating system.","Using a combination of remote probes (e.g., TCP/IP, SMB, HTTP, NTP,
+SNMP, etc.), it is possible to guess the name of the remote operating
+system in use. It is also possible sometimes to guess the version of
+the operating system.","n/a","","
+Remote operating system : Linux Kernel 4.15 on Ubuntu 18.04 (bionic)
+Confidence level : 95
+Method : SSH
+
+ 
+The remote host is running Linux Kernel 4.15 on Ubuntu 18.04 (bionic)","","","","","None","","","","2003/12/09","2020/03/09","","",""
+"12053","","","None","54.196.179.100","tcp","0","Host Fully Qualified Domain Name (FQDN) Resolution","It was possible to resolve the name of the remote host.","Nessus was able to resolve the fully qualified domain name (FQDN) of
+the remote host.","n/a","","
+54.196.179.100 resolves as ec2-54-196-179-100.compute-1.amazonaws.com.
+","","","","","None","","","","2004/02/11","2017/04/14","","",""
+"12264","","","None","54.196.179.100","icmp","0","Record Route","Record route","It is possible to obtain the traceroute to the remote host by 
+sending packets with the 'Record Route' option set.  It is a complement to traceroute.","N/A","","Here is the route recorded between 192.168.0.32 and 54.196.179.100 :
+179.225.232.211
+152.255.151.105
+200.204.31.8
+152.255.150.50
+84.16.7.219
+94.142.100.207
+213.140.43.207
+176.52.252.10
+54.240.228.44
+","","","","","None","","","","2004/06/09","2019/03/06","","",""
+"19506","","","None","54.196.179.100","tcp","0","Nessus Scan Information","This plugin displays information about the Nessus scan.","This plugin displays, for each tested host, information about the
+scan itself :
+
+  - The version of the plugin set.
+  - The type of scanner (Nessus or Nessus Home).
+  - The version of the Nessus Engine.
+  - The port scanner(s) used.
+  - The port range scanned.
+  - Whether credentialed or third-party patch management
+    checks are possible.
+  - Whether the display of superseded patches is enabled
+  - The date of the scan.
+  - The duration of the scan.
+  - The number of hosts scanned in parallel.
+  - The number of checks done in parallel.","n/a","","Information about this scan : 
+
+Nessus version : 8.12.1
+Plugin feed version : 202012041017
+Scanner edition used : Nessus Home
+Scan type : Normal
+Scan policy used : Advanced Scan
+Scanner IP : 192.168.0.32
+Port scanner(s) : nessus_syn_scanner 
+Port range : default
+Thorough tests : no
+Experimental tests : no
+Paranoia level : 1
+Report verbosity : 1
+Safe checks : no
+Optimize the test : yes
+Credentialed checks : no
+Patch management checks : None
+Display superseded patches : yes (supersedence plugin launched)
+CGI scanning : enabled
+Web application tests : enabled
+Web app tests -  Test mode : some_pairs
+Web app tests -  Try all HTTP methods : yes
+Web app tests -  Maximum run time : 5 minutes.
+Web app tests -  Stop at first flaw : never
+Max hosts : 100
+Max checks : 5
+Recv timeout : 5
+Backports : Detected
+Allow post-scan editing: Yes
+Scan Start Date : 2020/12/4 8:38 EST
+Scan duration : 1531 sec
+","","","","","None","","","","2005/08/26","2020/08/27","","",""
+"22964","","","None","54.196.179.100","tcp","22","Service Detection","The remote service could be identified.","Nessus was able to identify the remote service by its banner or by
+looking at the error message it sends when it receives an HTTP
+request.","n/a","","An SSH server is running on this port.","","","","","None","","","","2007/08/19","2020/11/19","","",""
+"22964","","","None","54.196.179.100","tcp","80","Service Detection","The remote service could be identified.","Nessus was able to identify the remote service by its banner or by
+looking at the error message it sends when it receives an HTTP
+request.","n/a","","A web server is running on this port.","","","","","None","","","","2007/08/19","2020/11/19","","",""
+"22964","","","None","54.196.179.100","tcp","8000","Service Detection","The remote service could be identified.","Nessus was able to identify the remote service by its banner or by
+looking at the error message it sends when it receives an HTTP
+request.","n/a","","A web server is running on this port.","","","","","None","","","","2007/08/19","2020/11/19","","",""
+"24260","","","None","54.196.179.100","tcp","80","HyperText Transfer Protocol (HTTP) Information","Some information about the remote HTTP configuration can be extracted.","This test gives some information about the remote HTTP protocol - the
+version used, whether HTTP Keep-Alive and HTTP pipelining are enabled,
+etc... 
+
+This test is informational only and does not denote any security
+problem.","n/a","","
+Response Code : HTTP/1.1 200 OK
+
+Protocol version : HTTP/1.1
+SSL : no
+Keep-Alive : yes
+Options allowed : (Not implemented)
+Headers :
+
+  Date: Fri, 04 Dec 2020 13:52:01 GMT
+  Server: Apache/2.4.29 (Ubuntu)
+  Last-Modified: Sun, 11 Oct 2020 03:11:08 GMT
+  ETag: ""2aa6-5b15c887ca914""
+  Accept-Ranges: bytes
+  Content-Length: 10918
+  Vary: Accept-Encoding
+  Keep-Alive: timeout=5, max=100
+  Connection: Keep-Alive
+  Content-Type: text/html
+  
+Response Body :
+
+
+<!DOCTYPE html PUBLIC ""-//W3C//DTD XHTML 1.0 Transitional//EN"" ""http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"">
+<html xmlns=""http://www.w3.org/1999/xhtml"">
+  <!--
+    Modified from the Debian original for Ubuntu
+    Last updated: 2016-11-16
+    See: https://launchpad.net/bugs/1288690
+  -->
+  <head>
+    <meta http-equiv=""Content-Type"" content=""text/html; charset=UTF-8"" />
+    <title>Apache2 Ubuntu Default Page: It works</title>
+    <style type=""text/css"" media=""screen"">
+  * {
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+  }
+
+  body, html {
+    padding: 3px 3px 3px 3px;
+
+    background-color: #D8DBE2;
+
+    font-family: Verdana, sans-serif;
+    font-size: 11pt;
+    text-align: center;
+  }
+
+  div.main_page {
+    position: relative;
+    display: table;
+
+    width: 800px;
+
+    margin-bottom: 3px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0px 0px 0px 0px;
+
+    border-width: 2px;
+    border-color: #212738;
+    border-style: solid;
+
+    background-color: #FFFFFF;
+
+    text-align: center;
+  }
+
+  div.page_header {
+    height: 99px;
+    width: 100%;
+
+    background-color: #F5F6F7;
+  }
+
+  div.page_header span {
+    margin: 15px 0px 0px 50px;
+
+    font-size: 180%;
+    font-weight: bold;
+  }
+
+  div.page_header img {
+    margin: 3px 0px 0px 40px;
+
+    border: 0px 0px 0px;
+  }
+
+  div.table_of_contents {
+    clear: left;
+
+    min-width: 200px;
+
+    margin: 3px 3px 3px 3px;
+
+    background-color: #FFFFFF;
+
+    text-align: left;
+  }
+
+  div.table_of_contents_item {
+    clear: left;
+
+    width: 100%;
+
+    margin: 4px 0px 0px 0px;
+
+    background-color: #FFFFFF;
+
+    color: #000000;
+    text-align: left;
+  }
+
+  div.table_of_contents_item a {
+    margin: 6px 0px 0px 6px;
+  }
+
+  div.content_section {
+    margin: 3px 3px 3px 3px;
+
+    background-color: #FFFFFF;
+
+    text-align: left;
+  }
+
+  div.content_section_text {
+    padding: 4px 8px 4px 8px;
+
+    color: #000000;
+    font-size: 100%;
+  }
+
+  div.content_section_text pre {
+    margin: 8px 0px 8px 0px;
+    padding: 8px 8px 8px 8px;
+
+    border-width: 1px;
+    border-style: dotted;
+    border-color: #000000;
+
+    background-color: #F5F6F7;
+
+    font-style: italic;
+  }
+
+  div.content_section_text p {
+    margin-bottom: 6px;
+  }
+
+  div.content_section_text ul, div.content_section_text li {
+    padding: 4px 8px 4px 16px;
+  }
+
+  div.section_header {
+    padding: 3px 6px 3px 6px;
+
+    background-color: #8E9CB2;
+
+    color: #FFFFFF;
+    font-weight: bold;
+    font-size: 112%;
+    text-align: center;
+  }
+
+  div.section_header_red {
+    background-color: #CD214F;
+  }
+
+  div.section_header_grey {
+    background-color: #9F9386;
+  }
+
+  .floating_element {
+    position: relative;
+    float: left;
+  }
+
+  div.table_of_contents_item a,
+  div.content_section_text a {
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  div.table_of_contents_item a:link,
+  div.table_of_contents_item a:visited,
+  div.table_of_contents_item a:active {
+    color: #000000;
+  }
+
+  div.table_of_contents_item a:hover {
+    background-color: #000000;
+
+    color: #FFFFFF;
+  }
+
+  div.content_section_text a:link,
+  div.content_section_text a:visited,
+   div.content_section_text a:active {
+    background-color: #DCDFE6;
+
+    color: #000000;
+  }
+
+  div.content_section_text a:hover {
+    background-color: #000000;
+
+    color: #DCDFE6;
+  }
+
+  div.validator {
+  }
+    </style>
+  </head>
+  <body>
+    <div class=""main_page"">
+      <div class=""page_header floating_element"">
+        <img src=""/icons/ubuntu-logo.png"" alt=""Ubuntu Logo"" class=""floating_element""/>
+        <span class=""floating_element"">
+          Apache2 Ubuntu Default Page
+        </span>
+      </div>
+<!--      <div class=""table_of_contents floating_element"">
+        <div class=""section_header section_header_grey"">
+          TABLE OF CONTENTS
+        </div>
+        <div class=""table_of_contents_item floating_element"">
+          <a href=""#about"">About</a>
+        </div>
+        <div class=""table_of_contents_item floating_element"">
+          <a href=""#changes"">Changes</a>
+        </div>
+        <div class=""table_of_contents_item floating_element"">
+          <a href=""#scope"">Scope</a>
+        </div>
+        <div class=""table_of_contents_item floating_element"">
+          <a href=""#files"">Config files</a>
+        </div>
+      </div>
+-->
+      <div class=""content_section floating_element"">
+
+
+        <div class=""section_header section_header_red"">
+          <div id=""about""></div>
+          It works!
+        </div>
+        <div class=""content_section_text"">
+          <p>
+                This is the default welcome page used to test the correct 
+                operation of the Apache2 server after installation on Ubuntu systems.
+                It is based on the equivalent page on Debian, from which the Ubuntu Apache
+                packaging is derived.
+                If you can read this page, it means that the Apache HTTP server installed at
+                this site is working properly. You should <b>replace this file</b> (located at
+                <tt>/var/www/html/index.html</tt>) before continuing to operate your HTTP server.
+          </p>
+
+
+          <p>
+                If you are a normal user of this web site and don't know what this page is
+                about, this probably means that the site is currently unavailable due to
+                maintenance.
+                If the problem persists, please contact the site's administrator.
+          </p>
+
+        </div>
+        <div class=""section_header"">
+          <div id=""changes""></div>
+                Configuration Overview
+        </div>
+        <div class=""content_section_text"">
+          <p>
+                Ubuntu's Apache2 default configuration is different from the
+                upstream default configuration, and split into several files optimized for
+                interaction with Ubuntu tools. The configuration system is
+                <b>fully documented in
+                /usr/share/doc/apache2/README.Debian.gz</b>. Refer to this for the full
+                documentation. Documentation for the web server itself can be
+                found by accessing the <a href=""/manual"">manual</a> if the <tt>apache2-doc</tt>
+                package was installed on this server.
+
+          </p>
+          <p>
+                The configuration layout for an Apache2 web server installation on Ubuntu systems is as follows:
+          </p>
+          <pre>
+/etc/apache2/
+|-- apache2.conf
+|       `--  ports.conf
+|-- mods-enabled
+|       |-- *.load
+|       `-- *.conf
+|-- conf-enabled
+|       `-- *.conf
+|-- sites-enabled
+|       `-- *.conf
+          </pre>
+          <ul>
+                        <li>
+                           <tt>apache2.conf</tt> is the main configuration
+                           file. It puts the pieces together by including all remaining configuration
+                           files when starting up the web server.
+                        </li>
+
+                        <li>
+                           <tt>ports.conf</tt> is always included from the
+                           main configuration file. It is used to determine the listening ports for
+                           incoming connections, and this file can be customized anytime.
+                        </li>
+
+                        <li>
+                           Configuration files in the <tt>mods-enabled/</tt>,
+                           <tt>conf-enabled/</tt> and <tt>sites-enabled/</tt> directories contain
+                           particular configuration snippets which manage modules, global configuration
+                           fragments, or virtual host configurations, respectively.
+                        </li>
+
+                        <li>
+                           They are activated by symlinking available
+                           configuration files from their respective
+                           *-available/ counterparts. These should be managed
+                           by using our helpers
+                           <tt>
+                                a2enmod,
+                                a2dismod,
+                           </tt>
+                           <tt>
+                                a2ensite,
+                                a2dissite,
+                            </tt>
+                                and
+                           <tt>
+                                a2enconf,
+                                a2disconf
+                           </tt>. See their respective man pages for detailed information.
+                        </li>
+
+                        <li>
+                           The binary is called apache2. Due to the use of
+                           environment variables, in the default configuration, apache2 needs to be
+                           started/stopped with <tt>/etc/init.d/apache2</tt> or <tt>apache2ctl</tt>.
+                           <b>Calling <tt>/usr/bin/apache2</tt> directly will not work</b> with the
+                           default configuration.
+                        </li>
+          </ul>
+        </div>
+
+        <div class=""section_header"">
+            <div id=""docroot""></div>
+                Document Roots
+        </div>
+
+        <div class=""content_section_text"">
+            <p>
+                By default, Ubuntu does not allow access through the web browser to
+                <em>any</em> file apart of those located in <tt>/var/www</tt>,
+                <a href=""http://httpd.apache.org/docs/2.4/mod/mod_userdir.html"" rel=""nofollow"">public_html</a>
+                directories (when enabled) and <tt>/usr/share</tt> (for web
+                applications). If your site is using a web document root
+                located elsewhere (such as in <tt>/srv</tt>) you may need to whitelist your
+                document root directory in <tt>/etc/apache2/apache2.conf</tt>.
+            </p>
+            <p>
+                The default Ubuntu document root is <tt>/var/www/html</tt>. You
+                can make your own virtual hosts under /var/www. This is different
+                to previous releases which provides better security out of the box.
+            </p>
+        </div>
+
+        <div class=""section_header"">
+          <div id=""bugs""></div>
+                Reporting Problems
+        </div>
+        <div class=""content_section_text"">
+          <p>
+                Please use the <tt>ubuntu-bug</tt> tool to report bugs in the
+                Apache2 package with Ubuntu. However, check <a
+                href=""https://bugs.launchpad.net/ubuntu/+source/apache2""
+                rel=""nofollow"">existing bug reports</a> before reporting a new bug.
+          </p>
+          <p>
+                Please report bugs specific to modules (such as PHP and others)
+                to respective packages, not to the web server itself.
+          </p>
+        </div>
+
+
+
+
+      </div>
+    </div>
+    <div class=""validator"">
+    </div>
+  </body>
+</html>
+
+","","","","","None","","","","2007/01/30","2019/11/22","","",""
+"24260","","","None","54.196.179.100","tcp","8000","HyperText Transfer Protocol (HTTP) Information","Some information about the remote HTTP configuration can be extracted.","This test gives some information about the remote HTTP protocol - the
+version used, whether HTTP Keep-Alive and HTTP pipelining are enabled,
+etc... 
+
+This test is informational only and does not denote any security
+problem.","n/a","","
+Response Code : HTTP/1.1 404 Not Found
+
+Protocol version : HTTP/1.1
+SSL : no
+Keep-Alive : no
+Options allowed : (Not implemented)
+Headers :
+
+  Date: Fri, 04 Dec 2020 13:52:02 GMT
+  Content-Length: 9
+  Content-Type: text/plain; charset=utf-8
+  Connection: close
+  
+Response Body :
+
+","","","","","None","","","","2007/01/30","2019/11/22","","",""
+"39521","","","None","54.196.179.100","tcp","80","Backported Security Patch Detection (WWW)","Security patches are backported.","Security patches may have been 'backported' to the remote HTTP server
+without changing its version number.
+
+Banner-based checks have been disabled to avoid false positives.
+
+Note that this test is informational only and does not denote any
+security problem.","n/a","https://access.redhat.com/security/updates/backporting/?sc_cid=3093","
+Give Nessus credentials to perform local checks.
+","","","","","None","","","","2009/06/25","2015/07/07","","",""
+"43111","","","None","54.196.179.100","tcp","80","HTTP Methods Allowed (per directory)","This plugin determines which HTTP methods are allowed on various CGI
+directories.","By calling the OPTIONS method, it is possible to determine which HTTP
+methods are allowed on each directory.
+
+The following HTTP methods are considered insecure:
+  PUT, DELETE, CONNECT, TRACE, HEAD
+
+Many frameworks and languages treat 'HEAD' as a 'GET' request, albeit
+one without any body in the response. If a security constraint was
+set on 'GET' requests such that only 'authenticatedUsers' could
+access GET requests for a particular servlet or resource, it would be
+bypassed for the 'HEAD' version. This allowed unauthorized blind
+submission of any privileged GET request.
+
+As this list may be incomplete, the plugin also tests - if 'Thorough
+tests' are enabled or 'Enable web applications tests' is set to 'yes'
+in the scan policy - various known HTTP methods on each directory and
+considers them as unsupported if it receives a response code of 400,
+403, 405, or 501.
+
+Note that the plugin output is only informational and does not
+necessarily indicate the presence of any security vulnerabilities.","n/a","http://www.nessus.org/u?d9c03a9a
+http://www.nessus.org/u?b019cbdb
+https://www.owasp.org/index.php/Test_HTTP_Methods_(OTG-CONFIG-006)","Based on the response to an OPTIONS request :
+
+  - HTTP methods GET HEAD OPTIONS POST are allowed on : 
+
+    /
+    /icons
+
+
+Based on tests of each method : 
+
+  - HTTP methods GET HEAD OPTIONS POST are allowed on : 
+
+    /
+    /icons
+
+","","","","","None","","","","2009/12/10","2019/03/19","","",""
+"43111","","","None","54.196.179.100","tcp","8000","HTTP Methods Allowed (per directory)","This plugin determines which HTTP methods are allowed on various CGI
+directories.","By calling the OPTIONS method, it is possible to determine which HTTP
+methods are allowed on each directory.
+
+The following HTTP methods are considered insecure:
+  PUT, DELETE, CONNECT, TRACE, HEAD
+
+Many frameworks and languages treat 'HEAD' as a 'GET' request, albeit
+one without any body in the response. If a security constraint was
+set on 'GET' requests such that only 'authenticatedUsers' could
+access GET requests for a particular servlet or resource, it would be
+bypassed for the 'HEAD' version. This allowed unauthorized blind
+submission of any privileged GET request.
+
+As this list may be incomplete, the plugin also tests - if 'Thorough
+tests' are enabled or 'Enable web applications tests' is set to 'yes'
+in the scan policy - various known HTTP methods on each directory and
+considers them as unsupported if it receives a response code of 400,
+403, 405, or 501.
+
+Note that the plugin output is only informational and does not
+necessarily indicate the presence of any security vulnerabilities.","n/a","http://www.nessus.org/u?d9c03a9a
+http://www.nessus.org/u?b019cbdb
+https://www.owasp.org/index.php/Test_HTTP_Methods_(OTG-CONFIG-006)","
+Based on tests of each method : 
+
+  - HTTP methods ACL BASELINE-CONTROL BCOPY BDELETE BMOVE BPROPFIND 
+    BPROPPATCH CHECKIN CHECKOUT CONNECT COPY DEBUG DELETE GET HEAD 
+    INDEX LABEL LOCK MERGE MKACTIVITY MKCOL MKWORKSPACE MOVE NOTIFY 
+    OPTIONS ORDERPATCH PATCH POLL POST PROPFIND PROPPATCH PUT REPORT 
+    RPC_IN_DATA RPC_OUT_DATA SEARCH SUBSCRIBE TRACE UNCHECKOUT UNLOCK 
+    UNSUBSCRIBE UPDATE VERSION-CONTROL X-MS-ENUMATTS are allowed on : 
+
+    /
+
+  - Invalid/unknown HTTP methods are allowed on :
+
+    /
+","","","","","None","","","","2009/12/10","2019/03/19","","",""
+"45590","","","None","54.196.179.100","tcp","0","Common Platform Enumeration (CPE)","It was possible to enumerate CPE names that matched on the remote
+system.","By using information obtained from a Nessus scan, this plugin reports
+CPE (Common Platform Enumeration) matches for various hardware and
+software products found on a host. 
+
+Note that if an official CPE is not available for the product, this
+plugin computes the best possible CPE based on the information
+available from the scan.","n/a","http://cpe.mitre.org/
+https://nvd.nist.gov/products/cpe","
+The remote operating system matched the following CPE : 
+
+  cpe:/o:canonical:ubuntu_linux:18.04 -> Canonical Ubuntu Linux 18.04
+
+Following application CPE's matched on the remote system :
+
+  cpe:/a:apache:http_server:2.4.29 -> Apache Software Foundation Apache HTTP Server 2.4.29
+  cpe:/a:apache:http_server:2.4.99
+  cpe:/a:mongodb:mongodb:3.6.21
+  cpe:/a:mysql:mysql:5.7.32-0ubuntu0.18.04.1
+  cpe:/a:openbsd:openssh:7.6
+","","","","","None","","","","2010/04/21","2020/11/17","","",""
+"48204","","","None","54.196.179.100","tcp","80","Apache HTTP Server Version","It is possible to obtain the version number of the remote Apache HTTP
+server.","The remote host is running the Apache HTTP Server, an open source web
+server. It was possible to read the version number from the banner.","n/a","https://httpd.apache.org/","
+  URL        : http://ec2-54-196-179-100.compute-1.amazonaws.com/
+  Version    : 2.4.99
+  backported : 1
+  os         : ConvertedUbuntu
+","","","","","None","","IAVT:0001-T-0530","","2010/07/30","2020/09/22","","",""
+"49704","","","None","54.196.179.100","tcp","80","External URLs","Links to external sites were gathered.","Nessus gathered HREF links to external sites by crawling the remote
+web server.","n/a","","
+2 external URLs were gathered on this web server : 
+URL...                                  - Seen on...
+
+
+http://httpd.apache.org/docs/2.4/mod/mod_userdir.html - /
+https://bugs.launchpad.net/ubuntu/+source/apache2 - /
+","","","","","None","","","","2010/10/04","2011/08/19","","",""
+"50344","","","None","54.196.179.100","tcp","80","Missing or Permissive Content-Security-Policy frame-ancestors HTTP Response Header","The remote web server does not take steps to mitigate a class of web
+application vulnerabilities.","The remote web server in some responses sets a permissive
+Content-Security-Policy (CSP) frame-ancestors response header or does
+not set one at all.
+
+The CSP frame-ancestors header has been proposed by the W3C Web
+Application Security Working Group as a way to mitigate cross-site
+scripting and clickjacking attacks.","Set a non-permissive Content-Security-Policy frame-ancestors header
+for all requested resources.","http://www.nessus.org/u?55aa8f57
+http://www.nessus.org/u?07cc2a06
+https://content-security-policy.com/
+https://www.w3.org/TR/CSP2/","
+The following pages do not set a Content-Security-Policy frame-ancestors response header or set a permissive policy:
+
+  - http://ec2-54-196-179-100.compute-1.amazonaws.com/
+","","","","","None","","","","2010/10/26","2018/11/15","","",""
+"50345","","","None","54.196.179.100","tcp","80","Missing or Permissive X-Frame-Options HTTP Response Header","The remote web server does not take steps to mitigate a class of web
+application vulnerabilities.","The remote web server in some responses sets a permissive
+X-Frame-Options response header or does not set one at all.
+
+The X-Frame-Options header has been proposed by Microsoft as a way to
+mitigate clickjacking attacks and is currently supported by all major
+browser vendors","Set a properly configured X-Frame-Options header for all requested
+resources.","https://en.wikipedia.org/wiki/Clickjacking
+http://www.nessus.org/u?399b1f56","
+The following pages do not set a X-Frame-Options response header or set a permissive policy:
+
+  - http://ec2-54-196-179-100.compute-1.amazonaws.com/
+","","","","","None","","","","2010/10/26","2017/05/16","","",""
+"54615","","","None","54.196.179.100","tcp","0","Device Type","It is possible to guess the remote device type.","Based on the remote operating system, it is possible to determine
+what the remote system type is (eg: a printer, router, general-purpose
+computer, etc).","n/a","","Remote device type : general-purpose
+Confidence level : 95
+","","","","","None","","","","2011/05/23","2011/05/23","","",""
+"65914","","","None","54.196.179.100","tcp","27017","MongoDB Detection","The remote host is running a database system.","A document-oriented database system is listening on the remote port.","n/a","https://www.mongodb.com/","
+  Version     : 3.6.21
+  Git version : 1cd2db51dce4b16f4bc97a75056269df0dc0bddb
+  Databases   : config - system.sessions,_id_
+                READ_ME_TO_RECOVER_YOUR_DATA - README,_id_
+                admin - system.version,_id_
+
+","","","","","None","","","","2013/04/10","2019/11/22","","",""
+"70657","","","None","54.196.179.100","tcp","22","SSH Algorithms and Languages Supported","An SSH server is listening on this port.","This script detects which algorithms and languages are supported by
+the remote service for encrypting communications.","n/a","","
+Nessus negotiated the following encryption algorithm with the server : 
+
+The server supports the following options for kex_algorithms : 
+
+  curve25519-sha256
+  curve25519-sha256@libssh.org
+  diffie-hellman-group-exchange-sha256
+  diffie-hellman-group14-sha1
+  diffie-hellman-group14-sha256
+  diffie-hellman-group16-sha512
+  diffie-hellman-group18-sha512
+  ecdh-sha2-nistp256
+  ecdh-sha2-nistp384
+  ecdh-sha2-nistp521
+
+The server supports the following options for server_host_key_algorithms : 
+
+  ecdsa-sha2-nistp256
+  rsa-sha2-256
+  rsa-sha2-512
+  ssh-ed25519
+  ssh-rsa
+
+The server supports the following options for encryption_algorithms_client_to_server : 
+
+  aes128-ctr
+  aes128-gcm@openssh.com
+  aes192-ctr
+  aes256-ctr
+  aes256-gcm@openssh.com
+  chacha20-poly1305@openssh.com
+
+The server supports the following options for encryption_algorithms_server_to_client : 
+
+  aes128-ctr
+  aes128-gcm@openssh.com
+  aes192-ctr
+  aes256-ctr
+  aes256-gcm@openssh.com
+  chacha20-poly1305@openssh.com
+
+The server supports the following options for mac_algorithms_client_to_server : 
+
+  hmac-sha1
+  hmac-sha1-etm@openssh.com
+  hmac-sha2-256
+  hmac-sha2-256-etm@openssh.com
+  hmac-sha2-512
+  hmac-sha2-512-etm@openssh.com
+  umac-128-etm@openssh.com
+  umac-128@openssh.com
+  umac-64-etm@openssh.com
+  umac-64@openssh.com
+
+The server supports the following options for mac_algorithms_server_to_client : 
+
+  hmac-sha1
+  hmac-sha1-etm@openssh.com
+  hmac-sha2-256
+  hmac-sha2-256-etm@openssh.com
+  hmac-sha2-512
+  hmac-sha2-512-etm@openssh.com
+  umac-128-etm@openssh.com
+  umac-128@openssh.com
+  umac-64-etm@openssh.com
+  umac-64@openssh.com
+
+The server supports the following options for compression_algorithms_client_to_server : 
+
+  none
+  zlib@openssh.com
+
+The server supports the following options for compression_algorithms_server_to_client : 
+
+  none
+  zlib@openssh.com
+","","","","","None","","","","2013/10/28","2017/08/28","","",""
+"81777","","6.4","Medium","54.196.179.100","tcp","27017","MongoDB Service Without Authentication Detection","The remote host is running a database system that does not have
+authentication enabled.","MongoDB, a document-oriented database system, is listening on the
+remote port, and it is configured to allow connections without any
+authentication. A remote attacker can therefore connect to the
+database system in order to create, read, update, and delete
+documents, collections, and databases.","Enable authentication or restrict access to the MongoDB service.","https://www.mongodb.com/","
+Nessus was able to run the following database query on the remote MongoDB
+service without authenticating since authentication is not enabled:
+
+local.startup_log.findOne();
+
+This produced a response document with the following truncated
+contents: (limited to 10 lines)
+------------------------------ snip ------------------------------
+------------------------------ snip ------------------------------
+
+","","9.8","","","Medium","","","","2015/03/12","2019/01/17","","",""
+"91815","","","None","54.196.179.100","tcp","80","Web Application Sitemap","The remote web server hosts linkable content that can be crawled by
+Nessus.","The remote web server contains linkable content that can be used to
+gather information about a target.","n/a","http://www.nessus.org/u?5496c8d9","
+The following sitemap was created from crawling linkable content on the target host :
+
+  - http://ec2-54-196-179-100.compute-1.amazonaws.com/
+
+Attached is a copy of the sitemap file.
+","","","","","None","","","","2016/06/24","2016/06/24","","",""
+"110723","","","None","54.196.179.100","tcp","0","Target Credential Status by Authentication Protocol - No Credentials Provided","Nessus was able to find common ports used for local checks,
+however, no credentials were provided in the scan policy.","Nessus was not able to successfully authenticate directly to the
+remote target on an available authentication protocol. Nessus was
+able to connect to the remote port and identify that the service
+running on the port supports an authentication protocol, but Nessus
+failed to authenticate to the remote service using the provided
+credentials. There may have been a protocol failure that prevented
+authentication from being attempted or all of the provided credentials
+for the authentication protocol may be invalid. See plugin output for
+error details.
+
+Please note the following :
+
+- This plugin reports per protocol, so it is possible for
+  valid credentials to be provided for one protocol and not
+  another. For example, authentication may succeed via SSH
+  but fail via SMB, while no credentials were provided for
+  an available SNMP service.
+
+- Providing valid credentials for all available
+  authentication protocols may improve scan coverage, but
+  the value of successful authentication for a given
+  protocol may vary from target to target depending upon
+  what data (if any) is gathered from the target via that
+  protocol. For example, successful authentication via SSH
+  is more valuable for Linux targets than for Windows
+  targets, and likewise successful authentication via SMB
+  is more valuable for Windows targets than for Linux
+  targets.","n/a","","SSH was detected on port 22 but no credentials were provided.
+SSH local checks were not enabled.
+
+","","","","","None","","IAVB:0001-B-0504","","2018/06/27","2020/10/15","","",""
+"117886","","","None","54.196.179.100","tcp","0","Local Checks Not Enabled (info)","Local checks were not enabled.","Nessus did not enable local checks on the remote host. This does not
+necessarily indicate a problem with the scan. Credentials may not have
+been provided, local checks may not be available for the target, the
+target may not have been identified, or another issue may have
+occurred that prevented local checks from being enabled. See plugin
+output for details.
+
+This plugin reports informational findings related to local checks not
+being enabled. For failure information, see plugin 21745 :
+'Authentication Failure - Local Checks Not Run'.","n/a","","
+The following issues were reported :
+
+  - Plugin      : no_local_checks_credentials.nasl
+    Plugin ID   : 110723
+    Plugin Name : Target Credential Status by Authentication Protocol - No Credentials Provided
+    Message     : 
+Credentials were not provided for detected SSH service.
+","","","","","None","","IAVB:0001-B-0515","","2018/10/02","2020/09/22","","",""
